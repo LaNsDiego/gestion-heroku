@@ -25,7 +25,6 @@ class CronogramaFase extends Model
 
         $ListadoCronogramaFase = CronogramaFase::where('CronogramaId',$CronogramaId)->get();
         $ListadoCronogramaFase2 = $ListadoCronogramaFase->map(function($ObjCronogramaFase){
-            Log::info("CANTIDAD DE EC "  + $ObjCronogramaFase->Id);
             $ObjCronogramaFase->ListadoCronogramaEC = CronogramaElementoConfiguracion::ListarPorCronogramaFaseId($ObjCronogramaFase->Id);
             return $ObjCronogramaFase;
         });
