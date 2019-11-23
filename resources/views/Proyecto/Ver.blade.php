@@ -56,288 +56,71 @@
                 <span>Metodologia :{{$Metodologia->Nombre}}</span>
             </div>
         </div>
+
+
       <div class="w-100">
         <!-- accordion -->
         <div class="accordion">
-            <!-- fase -->
-            <div class="card">
-                @foreach($ListadoFase as $Fase)
+
+                @foreach($ListadoFase as $ObjCronogramaFase)
+                <!-- fase -->
+                <div class="card">
                     <!-- header -->
                     <div class="card-header card-header-main d-flex align-items-center">
-                        <a href="#" class="ml-3" data-toggle="collapse" data-target="#{{$Fase->Nombre}}">{{$Fase->Nombre}}</a>
+                        <a href="#" class="ml-3" data-toggle="collapse" data-target="#Fase{{$ObjCronogramaFase->Id}}">{{$ObjCronogramaFase->Nombre}}</a>
                     </div>
 
-                @endforeach
-                @foreach($ListadoFase as $Elemento)
-                    <!-- body -->
-                        <div id="{{$Fase->Nombre}}" class="collapse show__x">
-                            <div class="card-body">
-                                <!-- accordion elementos -->
-                                <div class="accordion" id="AccordionFase1Elementos">
-                                    <!-- item -->
-                                    <div class="card card-elemento">
-                                        <div class="card-header header-elemento">
-                                            <a href="#" data-toggle="collapse" data-target="#Fase1Elemento1">Elemento de configuración 1</a>
-                                        </div>
-                                        <div id="Fase1Elemento1" class="collapse show__x" data-parent="#AccordionFase1Elementos">
-                                            <div class="card-body">
-                                                <!-- versiones -->
-                                                <div class="w-100 pb-2 text-right">
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion"><i class="fa fa-plus" aria-hidden="true"></i>Agregar Versión</button>
-                                                </div>
-                                                <!-- version -->
-                                                <div class="elemento-item">
-                                                    <a href="/elemento-configuracion/listar/1">
-                                                        <div class="">Versión 1</div>
-                                                    </a>
-                                                </div>
-                                                <!-- version -->
+                    <div id="Fase{{$ObjCronogramaFase->Id}}" class="collapse show__x">
+                        <div class="card-body">
 
-                                                <!-- versiones -->
+                                @foreach($ObjCronogramaFase->ListadoCronogramaEC as $Elemento)
+{{--                                    <li>{{$Elemento->Nombre}}</li>--}}
+
+                                    <!-- accordion elementos -->
+                                    <div class="accordion" id="">
+                                    <!-- item -->
+                                        <div class="card card-elemento">
+                                            <div class="card-header header-elemento">
+                                                <a href="#" data-toggle="collapse" data-target="#Elemento{{$Elemento->Id}}">{{$Elemento->Nombre}}</a>
+                                            </div>
+                                            <div id="Elemento{{$Elemento->Id}}" class="collapse show__x" data-parent="#AccordionFase1Elementos">
+                                                <div class="card-body">
+                                                    <!-- versiones -->
+                                                    <div class="w-100 pb-2 text-right">
+                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion"><i class="fa fa-plus" aria-hidden="true"></i>Agregar Versión</button>
+                                                    </div>
+                                                    <!-- version -->
+                                                    <div class="elemento-item">
+                                                        <a href="/elemento-configuracion/listar/1">
+                                                            <div class="">Versión 1</div>
+                                                        </a>
+                                                    </div>
+                                                    <!-- version -->
+
+                                                    <!-- versiones -->
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     <!-- item -->
 
-                                </div>
-                                <!-- accordion elementos -->
-                            </div>
+                                        </div>
+                                    <!-- accordion elementos -->
+                                @endforeach
                         </div>
-                @endforeach
-            </div>
-            <!-- fase -->
+                    </div>
 
-                <!-- body -->
-                <div id="Fase1" class="collapse show__x">
-                    <div class="card-body">
-                        <!-- accordion elementos -->
-                        <div class="accordion" id="AccordionFase1Elementos">
-                            <!-- item -->
-                            <div class="card card-elemento">
-                                <div class="card-header header-elemento">
-                                    <a href="#" data-toggle="collapse" data-target="#Fase1Elemento1">Elemento de configuración 1</a>
-                                </div>
-                                <div id="Fase1Elemento1" class="collapse show__x" data-parent="#AccordionFase1Elementos">
-                                    <div class="card-body">
-                                        <!-- versiones -->
-                                        <div class="w-100 pb-2 text-right">
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion"><i class="fa fa-plus" aria-hidden="true"></i>Agregar Versión</button>
-                                        </div>
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/1">
-                                                <div class="">Versión 1</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/2">
-                                                <div class="">Versión 2</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- versiones -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- item -->
-                            <!-- item -->
-                            <div class="card card-elemento">
-                                <div class="card-header header-elemento">
-                                    <a href="#" data-toggle="collapse" data-target="#Fase1Elemento2">Elemento de configuración 2</a>
-                                </div>
-                                <div id="Fase1Elemento2" class="collapse" data-parent="#AccordionFase1Elementos">
-                                    <div class="card-body">
-                                        <!-- versiones -->
-                                        <div class="w-100 pb-2 text-right">
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion">Agregar Versión</button>
-                                        </div>
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/1">
-                                                <div class="">Versión 1</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/2">
-                                                <div class="">Versión 2</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- versiones -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- item -->
-                        </div>
-                        <!-- accordion elementos -->
-                    </div>
                 </div>
-            </div>
-            <!-- fase -->
-            <!-- fase -->
-            <div class="card">
-                <!-- header -->
-                <div class="card-header card-header-main d-flex align-items-center">
-                    <a href="#" class="ml-3" data-toggle="collapse" data-target="#Fase2">Diseño</a>
-                </div>
-                <!-- body -->
-                <div id="Fase2" class="collapse">
-                    <div class="card-body">
-                        <!-- accordion elementos -->
-                        <div class="accordion" id="AccordionFase2Elementos">
-                            <!-- item -->
-                            <div class="card card-elemento">
-                                <div class="card-header header-elemento">
-                                    <a href="#" data-toggle="collapse" data-target="#Fase2Elemento1">Elemento de configuración 1</a>
-                                </div>
-                                <div id="Fase2Elemento1" class="collapse show__x" data-parent="#AccordionFase2Elementos">
-                                    <div class="card-body">
-                                        <!-- versiones -->
-                                        <div class="w-100 pb-2 text-right">
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion">Agregar Versión</button>
-                                        </div>
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/1">
-                                                <div class="">Versión 1</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/2">
-                                                <div class="">Versión 2</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- versiones -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- item -->
-                            <!-- item -->
-                            <div class="card card-elemento">
-                                <div class="card-header header-elemento">
-                                    <a href="#" data-toggle="collapse" data-target="#Fase2Elemento2">Elemento de configuración 2</a>
-                                </div>
-                                <div id="Fase2Elemento2" class="collapse" data-parent="#AccordionFase2Elementos">
-                                    <div class="card-body">
-                                        <!-- versiones -->
-                                        <div class="w-100 pb-2 text-right">
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion">Agregar Versión</button>
-                                        </div>
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/1">
-                                                <div class="">Versión 1</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/2">
-                                                <div class="">Versión 2</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- versiones -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- item -->
-                        </div>
-                        <!-- accordion elementos -->
-                    </div>
-                </div>
-            </div>
-            <!-- fase -->
-            <!-- fase -->
-            <div class="card">
-                <!-- header -->
-                <div class="card-header card-header-main d-flex align-items-center">
-                    <a href="#" class="ml-3" data-toggle="collapse" data-target="#Fase3">Implementacion</a>
-                </div>
-                <!-- body -->
-                <div id="Fase3" class="collapse">
-                <div class="card-body">
-                    <!-- accordion elementos -->
-                        <div class="accordion" id="AccordionFase3Elementos">
-                            <!-- item -->
-                            <div class="card card-elemento">
-                                <div class="card-header header-elemento">
-                                    <a href="#" data-toggle="collapse" data-target="#Fase3Elemento1">Elemento de configuración 1</a>
-                                </div>
-                                <div id="Fase3Elemento1" class="collapse show__x" data-parent="#AccordionFase3Elementos">
-                                    <div class="card-body">
-                                        <!-- versiones -->
-                                        <div class="w-100 pb-2 text-right">
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion">Agregar Versión</button>
-                                        </div>
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/1">
-                                                <div class="">Versión 1</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/2">
-                                                <div class="">Versión 2</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- versiones -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- item -->
-                            <!-- item -->
-                            <div class="card card-elemento">
-                                <div class="card-header header-elemento">
-                                    <a href="#" data-toggle="collapse" data-target="#Fase3Elemento2">Elemento de configuración 2</a>
-                                </div>
-                                <div id="Fase3Elemento2" class="collapse" data-parent="#AccordionFase3Elementos">
-                                    <div class="card-body">
-                                        <!-- versiones -->
-                                        <div class="w-100 pb-2 text-right">
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion">Agregar Versión</button>
-                                        </div>
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/1">
-                                                <div class="">Versión 1</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- version -->
-                                        <div class="elemento-item">
-                                            <a href="/elemento-configuracion/listar/2">
-                                                <div class="">Versión 2</div>
-                                            </a>
-                                        </div>
-                                        <!-- version -->
-                                        <!-- versiones -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- item -->
-                        </div>
-                        <!-- accordion elementos -->
-                </div>
-                </div>
-            </div>
-            <!-- fase -->
+                @endforeach
         </div>
         <!-- accordion -->
       </div>
+
+
     </div>
   </div>
 </div>
+
+
 <!-- Modal Agregar Version -->
 <div class="modal fade" id="ModalAgregarVersion" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">

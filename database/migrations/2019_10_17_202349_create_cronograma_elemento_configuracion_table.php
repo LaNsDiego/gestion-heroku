@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCronogramaFaseTable extends Migration
+class CreateCronogramaElementoConfiguracionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateCronogramaFaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('cronograma_fase', function (Blueprint $table) {
+        Schema::create('cronograma_elemento_configuracion', function (Blueprint $table) {
             $table->increments('Id');
-            $table->integer('CronogramaId');
             $table->string('Nombre');
+            $table->string('Codigo');
+            $table->integer('CronogramaFaseId')->unsigned();
+
+            $table->foreign('CronogramaFaseId')->references('Id')->on('cronograma_fase');
         });
     }
 
@@ -27,6 +30,6 @@ class CreateCronogramaFaseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cronograma_fase');
+        Schema::dropIfExists('cronograma_elemento_configuracion');
     }
 }

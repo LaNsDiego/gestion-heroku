@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 
 class CronogramaFase extends Model
 {
     protected $table = 'cronograma_fase';
+    protected $primaryKey = 'Id';
     public $timestamps = false;
 
     public static function ListarPorMetodologiaId($MetodologiaId)
@@ -18,4 +20,21 @@ class CronogramaFase extends Model
 
         return $ListadoMetodologiaFase;
     }
+
+    public static function ListarPorCronogramaId($CronogramaId){
+
+        $ListadoCronogramaFase = CronogramaFase::where('CronogramaId',$CronogramaId)->get();
+        $ListadoCronogramaFase2 = $ListadoCronogramaFase->map(function($ObjCronogramaFase){
+            Log::info("CANTIDAD DE EC "  + $ObjCronogramaFase->Id);
+            $ObjCronogramaFase->ListadoCronogramaEC = CronogramaElementoConfiguracion::ListarPorCronogramaFaseId($ObjCronogramaFase->Id);
+            return $ObjCronogramaFase;
+        });
+        return $ListadoCronogramaFase2;
+    }
+
+    public static function Agregar(CronogramaFase $ObjCronogramaFase){
+        $ObjCronogramaFase->save();
+        return $ObjCronogramaFase->Id;
+    }
+
 }

@@ -15,13 +15,17 @@ class CreateSolicitudcambioTable extends Migration
     {
         Schema::create('solicitud_cambio', function (Blueprint $table) {
             $table->increments('Id');
-            $table->integer('Proyectoid');
-            $table->integer('MiembroSolicitanteId');
+            $table->integer('ProyectoId')->unsigned();
+            $table->integer('MiembroJefeId')->unsigned();
+            $table->integer('MiembroSolicitanteId')->unsigned();
             $table->date('Fecha');
             $table->string('Objetivo');
             $table->string('Descripcion');
-            $table->integer('Estado');
-            $table->integer('MiembroJefeId');
+            $table->integer('Estado');           
+            
+            $table->foreign('ProyectoId')->references('Id')->on('proyecto');
+            $table->foreign('MiembroJefeId')->references('Id')->on('miembro_proyecto');
+            $table->foreign('MiembroSolicitanteId')->references('Id')->on('miembro_proyecto');
         });
     }
 

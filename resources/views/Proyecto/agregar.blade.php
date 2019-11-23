@@ -92,7 +92,6 @@
     d.getElementById('CmbMetodologia').addEventListener('change',function(){
         let MetodologiaId = this.value;
         onChangeMetodologia(MetodologiaId);
-        d.getElementById('FasesId').value = MetodologiaId;
     })
 </script>
 @stop

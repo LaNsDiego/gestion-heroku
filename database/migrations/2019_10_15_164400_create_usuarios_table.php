@@ -13,10 +13,16 @@ class CreateUsuariosTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
         Schema::create('usuario', function (Blueprint $table) {
+            
             $table->increments('Id');
             $table->string('Usuario');
             $table->string('Clave');
+            $table->string('Correo')->unique();
+            $table->integer('RolId')->unsigned();
+            $table->rememberToken();
+            $table->foreign('RolId')->references('Id')->on('rol');
         });
     }
 

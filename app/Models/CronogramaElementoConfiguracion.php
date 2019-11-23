@@ -12,7 +12,7 @@ class CronogramaElementoConfiguracion extends Model
 
     public static function Agregar(CronogramaElementoConfiguracion $ObjPlantillaElementoConfiguracion){
         if($ObjPlantillaElementoConfiguracion->save()){
-            return $ObjPlantillaElementoConfiguracion->id;
+            return $ObjPlantillaElementoConfiguracion->Id;
         }
         return 0 ;
 
@@ -24,5 +24,10 @@ class CronogramaElementoConfiguracion extends Model
 
     public static function ObtenerPorId($PlantillaElementoConfiguracionId){
         return CronogramaElementoConfiguracion::findOrFail($PlantillaElementoConfiguracionId);
+    }
+
+    public static function ListarPorCronogramaFaseId($CronogramaFaseId)
+    {
+        return CronogramaElementoConfiguracion::where('CronogramaFaseId',$CronogramaFaseId)->get();
     }
 }

@@ -19,10 +19,14 @@ class CreateProyectosTable extends Migration
             $table->string('Nombre');
             $table->date('FechaInicio');
             $table->date('FechaTermino');
-            $table->integer('UsuarioJefeId');
-            $table->integer('MetodologiaId');
             $table->string('Descripcion');
             $table->string('Estado');
+            $table->integer('UsuarioJefeId')->unsigned();
+            $table->integer('MetodologiaId')->unsigned();
+            
+            $table->foreign('UsuarioJefeId')->references('Id')->on('usuario');
+            $table->foreign('MetodologiaId')->references('Id')->on('metodologia');
+
         });
     }
 

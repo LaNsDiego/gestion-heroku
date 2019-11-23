@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMiembroProyectosTable extends Migration
+class CreateCronogramaFaseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateMiembroProyectosTable extends Migration
      */
     public function up()
     {
-        Schema::create('miembro_proyecto', function (Blueprint $table) {
+        Schema::create('cronograma_fase', function (Blueprint $table) {
             $table->increments('Id');
-            $table->integer('UsuarioMiembroid');
-            $table->integer('RolId');
-            $table->integer('ProyectoId');
+            $table->integer('CronogramaId')->unsigned();
+            $table->string('Nombre');
+
+            $table->foreign('CronogramaId')->references('Id')->on('cronograma');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateMiembroProyectosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('miembro_proyecto');
+        Schema::dropIfExists('cronograma_fase');
     }
 }
