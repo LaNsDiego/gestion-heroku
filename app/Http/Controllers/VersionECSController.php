@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MiembroProyecto;
 use App\Models\TareaECS;
 use App\Models\VersionECS;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class VersionECSController extends Controller
                 'ObjVersion' => VersionECS::ObtenerPorId($Id),
                 'Proyecto' => $request->input('Proyecto'),
                 'Fase' => $request->input('Fase'),
-                'ListadoTarea' => TareaECS::ListarPorVersionECSId($Id)
+                'ListadoTarea' => TareaECS::ListarPorVersionECSId($Id),
+                'ListadoMiembro' => MiembroProyecto::ListarPorProyectoId($request->input('ProyectoId'))
             ]
         );
     }

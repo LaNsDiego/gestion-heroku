@@ -96,7 +96,7 @@
                                                     @foreach($Elemento->ListadoVersion as $ObjVersion)
                                                         <!-- version -->
                                                             <div class="elemento-item">
-                                                                <a href="/version/ver/{{$ObjVersion->Id}}?Proyecto={{$Proyecto->Nombre}}&Fase={{$ObjCronogramaFase->Nombre}}">
+                                                                <a href="/version/ver/{{$ObjVersion->Id}}?Proyecto={{$Proyecto->Nombre}}&Fase={{$ObjCronogramaFase->Nombre}}&ProyectoId={{$Proyecto->Id}}">
                                                                     <div class="">{{$ObjVersion->Version}}</div>
                                                                 </a>
                                                             </div>

@@ -20,6 +20,11 @@ class TareaECS extends Model
 
 
     //Relations
+    public static function Agregar(TareaECS $ObjTarea)
+    {
+        return $ObjTarea->save();
+    }
+
     public function Miembro(){
         return $this->hasOne('App\Models\MiembroProyecto', 'Id','MiembroResponsableId')->with('Usuario');
     }
