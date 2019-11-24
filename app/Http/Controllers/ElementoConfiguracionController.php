@@ -62,6 +62,10 @@ class ElementoConfiguracionController extends Controller
             return redirect()->back();
         }
     }
+
+    public function CronogramaFase(){
+        return $this->hasOne('App\Models\CronogramaFase', 'Id');
+    }
 }
 
 ?>

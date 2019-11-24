@@ -20,11 +20,11 @@ class CreateVersionesECSTable extends Migration
             $table->string('Version', 200);
             $table->date('FechaInicio');
             $table->date('FechaTermino');
-            $table->integer('UsuarioResponsableId')->unsigned();
+            $table->integer('MiembroResponsableId')->unsigned();
 
             
             $table->foreign('ElementoConfiguracionId')->references('Id')->on('cronograma_Elemento_configuracion');            
-            $table->foreign('UsuarioResponsableId')->references('Id')->on('usuario');
+            $table->foreign('MiembroResponsableId')->references('Id')->on('miembro_proyecto');
         });
     }
 

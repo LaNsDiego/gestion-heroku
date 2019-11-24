@@ -86,5 +86,7 @@ Route::post('SolicitudCambio/ViewESC', 'SolicitudCambioController@ViewESC')->nam
 
 Route::post('ajaxRequest', 'SolicitudCambioController@ajaxRequestPost');
 
+Route::post('/version/agregar', 'VersionECSController@ActAgregar');
+Route::get('/version/ver/{Id}', 'VersionECSController@FrmVer');
 
 ?>

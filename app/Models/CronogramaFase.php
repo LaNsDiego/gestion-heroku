@@ -25,7 +25,11 @@ class CronogramaFase extends Model
 
         $ListadoCronogramaFase = CronogramaFase::where('CronogramaId',$CronogramaId)->get();
         $ListadoCronogramaFase2 = $ListadoCronogramaFase->map(function($ObjCronogramaFase){
-            $ObjCronogramaFase->ListadoCronogramaEC = CronogramaElementoConfiguracion::ListarPorCronogramaFaseId($ObjCronogramaFase->Id);
+            $ObjCronogramaFase->ListadoCronogramaEC = CronogramaElementoConfiguracion::ListarPorCronogramaFaseId($ObjCronogramaFase->Id)
+                ->map(function($ObjCronogramaECS){
+                    $ObjCronogramaECS->ListadoVersion = VersionECS::ListarPorCronogramaEC($ObjCronogramaECS->Id);
+                    return $ObjCronogramaECS;
+                });
             return $ObjCronogramaFase;
         });
         return $ListadoCronogramaFase2;

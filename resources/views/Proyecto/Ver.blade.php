@@ -87,16 +87,21 @@
                                                 <div class="card-body">
                                                     <!-- versiones -->
                                                     <div class="w-100 pb-2 text-right">
-                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarVersion"><i class="fa fa-plus" aria-hidden="true"></i>Agregar Versión</button>
+                                                        <button type="button" class="btn btn-primary btn-sm btn-add-version" data-toggle="modal" data-target="#ModalAgregarVersion"
+                                                                data-cronograma-ecs="{{$Elemento->Id}}"
+                                                                data-cronograma-ecs-nombre="{{$Elemento->Nombre}}"
+                                                                data-cronograma-fase-nombre="{{$ObjCronogramaFase->Nombre}}"
+                                                        ><i class="fa fa-plus" aria-hidden="true"></i>Agregar Versión</button>
                                                     </div>
-                                                    <!-- version -->
-                                                    <div class="elemento-item">
-                                                        <a href="/elemento-configuracion/listar/1">
-                                                            <div class="">Versión 1</div>
-                                                        </a>
-                                                    </div>
-                                                    <!-- version -->
-
+                                                    @foreach($Elemento->ListadoVersion as $ObjVersion)
+                                                        <!-- version -->
+                                                            <div class="elemento-item">
+                                                                <a href="/version/ver/{{$ObjVersion->Id}}?Proyecto={{$Proyecto->Nombre}}&Fase={{$ObjCronogramaFase->Nombre}}">
+                                                                    <div class="">{{$ObjVersion->Version}}</div>
+                                                                </a>
+                                                            </div>
+                                                            <!-- version -->
+                                                    @endforeach
                                                     <!-- versiones -->
                                                 </div>
                                             </div>
@@ -133,7 +138,8 @@
       </div>
       <div class="modal-body">
         <!-- form -->
-        <form>
+        <form method="post" action="/version/agregar">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label class="control-label">Fase</label>
                 <input type="text" name="fase" id="fase" class="form-control" readonly>
@@ -141,19 +147,31 @@
             <div class="form-group">
                 <label class="control-label">Elemento de configuración</label>
                 <input type="text" name="elemento" id="elemento" class="form-control" readonly>
+                <input type="hidden" id="TxtElementoConfiguracionId" name="TxtElementoConfiguracionId">
             </div>
             <div class="form-group">
                 <label class="control-label">Número de versión</label>
-                <input type="text" name="version" class="form-control">
+                <input type="text" name="TxtVersion" class="form-control">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label class="control-label">Fecha de inicio</label>
-                    <input type="date" name="fechainicio" class="form-control">
+                    <label class="control-label" for="TxtFechaInicio">Fecha de inicio</label>
+                    <input type="date" id="TxtFechaInicio" name="TxtFechaInicio" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="control-label">Fecha de finalización</label>
-                    <input type="date" name="fechafinalizacion" class="form-control">
+                    <label class="control-label" for="TxtFechaTermino">Fecha de finalización</label>
+                    <input type="date" id="TxtFechaTermino" name="TxtFechaTermino" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label class="control-label" for="CmbMiembroResponsableId">Responsable</label>
+                    <select id="CmbMiembroResponsableId" name="CmbMiembroResponsableId" class="form-control">
+                        <option disabled selected>Seleccione una opción...</option>
+                        @foreach($ListadoMiembro as $ObjMiembro)
+                            <option value="{{$ObjMiembro->Id}}">{{$ObjMiembro->Nombre}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group pt-2">
@@ -166,4 +184,20 @@
   </div>
 </div>
 <!-- Modal Agregar Version -->
+
+<script>
+    window.onload = ()=>{
+        $(document).ready(function(){
+            $(".btn-add-version").click(function () {
+                let ecsNombre = $(this).data("cronograma-ecs-nombre");
+                let ecsId = $(this).data("cronograma-ecs");
+                let nombreFase = $(this).data("cronograma-fase-nombre");
+                $("#elemento").val(ecsNombre);
+                $("#fase").val(nombreFase)
+                $("#TxtElementoConfiguracionId").val(ecsId);
+
+            })
+        })
+    }
+</script>
 @stop

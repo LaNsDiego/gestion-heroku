@@ -7,6 +7,7 @@ use App\Models\CronogramaElementoConfiguracion;
 use App\Models\CronogramaFase;
 use App\Models\ElementoConfiguracion;
 use App\Models\Metodologia;
+use App\Models\MiembroProyecto;
 use Illuminate\Http\Request;
 use App\Models\Proyecto as Proyecto;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +30,8 @@ class ProyectoController extends Controller
             'Proyecto' => $Proyecto,
             'Cronograma' => $Cronograma,
             'ListadoFase' => CronogramaFase::ListarPorCronogramaId($Cronograma->Id),
-            'Metodologia' => Metodologia::ObtenerPorId($Proyecto->MetodologiaId)
+            'Metodologia' => Metodologia::ObtenerPorId($Proyecto->MetodologiaId),
+            'ListadoMiembro' => MiembroProyecto::ListarPorProyectoId($ProyectoId)
         ]);
     }
 

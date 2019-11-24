@@ -19,19 +19,17 @@ class CreateTareaECSTable extends Migration
             $table->increments('Id');
             $table->string('Codigo', 200);
             $table->integer('VersionECSId')->unsigned();
-            $table->integer('UsuarioResponsableId')->unsigned();
+            $table->integer('MiembroResponsableId')->unsigned();
             $table->date('FechaInicio');
             $table->date('FechaTermino');
             $table->string('Descripcion',1000);
             $table->string('Justificacion',1000);
             $table->integer('PorcentajeAvance');
             $table->string('UrlEvidencia',200);
-            $table->string('CodigoECS',200);
-
 
             
             $table->foreign('VersionECSId')->references('Id')->on('version_ecs');
-            $table->foreign('UsuarioResponsableId')->references('Id')->on('usuario');
+            $table->foreign('MiembroResponsableId')->references('Id')->on('miembro_proyecto');
 
 
         });
