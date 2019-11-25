@@ -21,9 +21,9 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($ListadoUsuario as $Usuario)
+            @foreach($ListadoUsuario as $key => $Usuario)
                 <tr>
-                    <td class="text-center">{{$Usuario->Id}}</td>
+                    <td class="text-center">{{$key+1}}</td>
                     <td>{{$Usuario->Nombre}}</td>
                     <td>{{$Usuario->Apellido}}</td>
                     <td>{{$Usuario->Correo}}</td>
