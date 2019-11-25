@@ -17,6 +17,39 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+//Route::post('/login', 'Auth\LoginController@Login')->name('login');
+
+//Usuario OK
+Route::prefix('usuario')->group(function () {
+    Route::get('/listar', 'UsuarioController@Listar');
+    Route::get('/agregar', 'UsuarioController@FrmAgregar');
+    Route::get('/editar/{UsuarioId}', 'UsuarioController@FrmEditar');
+    Route::post('/agregar', 'UsuarioController@ActAgregar');
+    Route::post('/editar', 'UsuarioController@ActEditar');
+});
+
+//Rol OK
+Route::prefix('rol')->group(function () {
+    Route::get('/listar', 'RolController@Listar');
+    Route::get('/agregar', 'RolController@FrmAgregar');
+    Route::get('/editar/{RolId}', 'RolController@FrmEditar');
+    Route::post('/agregar', 'RolController@ActAgregar');
+    Route::post('/editar', 'RolController@ActEditar');
+});
+
+//Miembro Proyecto OK
+Route::prefix('miembro-proyecto')->group(function () {
+    Route::get('/listar/p{ProyectoId}', 'MiembroProyectoController@Listar');
+    Route::get('/editar/{MiembroProyectoId}/p{ProyectoId}', 'MiembroProyectoController@FrmEditar');
+    Route::get('/eliminar/{MiembroProyectoId}/p{ProyectoId}', 'MiembroProyectoController@ActEliminar');
+    Route::post('/agregar', 'MiembroProyectoController@ActAgregar');
+    Route::post('/editar', 'MiembroProyectoController@ActEditar');
+});
+
 //Metodologia OK
 Route::prefix('metodologia')->group(function () {
     Route::get('/listar', 'MetodologiaController@Listar');

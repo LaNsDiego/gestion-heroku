@@ -17,12 +17,11 @@ class CreateUsuariosTable extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             
             $table->increments('Id');
-            $table->string('Usuario');
-            $table->string('Clave');
-            $table->string('Correo')->unique();
-            $table->integer('RolId')->unsigned();
-            $table->rememberToken();
-            $table->foreign('RolId')->references('Id')->on('rol');
+            $table->string('Nombre', 200);
+            $table->string('Apellido', 200);
+            $table->string('Correo', 200)->unique();
+            $table->string('Clave', 250);
+            //$table->rememberToken();
         });
     }
 

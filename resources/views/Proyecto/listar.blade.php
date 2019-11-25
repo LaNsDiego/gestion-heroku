@@ -18,7 +18,7 @@
               <th>FECHA DE INICIO</th>
               <th>FECHA DE FINALIZACION</th>
               <th class="text-center">ESTADO</th>
-              <th class="text-center" width="100px">ACCIONES</th>
+              <th class="text-center" width="200px">ACCIONES</th>
             </tr>
           </thead>
           <tbody>
@@ -29,8 +29,9 @@
                     <td>{{$Proyecto->FechaInicio}}</td>
                     <td>{{$Proyecto->FechaTermino}}</td>
                     <td class="text-center">{{$Proyecto->Estado}}</td>
-                    <td>
+                    <td class="text-center">
                         <a href="/proyecto/p{{$Proyecto->Id}}" class="btn btn-success btn-sm text-uppercase">Seleccionar</a>
+                        <a href="/miembro-proyecto/listar/p{{$Proyecto->Id}}" class="btn btn-primary btn-sm text-uppercase">Miembros</a>
                     </td>
                 </tr>
             @endforeach

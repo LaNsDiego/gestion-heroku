@@ -1,6 +1,16 @@
 <ul class="app-menu">
         <li><a class="app-menu__item" href=""><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
         
+        
+        <!-- Usuario -->
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-folder"></i><span class="app-menu__label">Usuarios</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="/usuario/listar"><i class="icon fa fa-circle-o"></i> Listar</a></li>
+            <li><a class="treeview-item" href="/usuario/agregar"><i class="icon fa fa-circle-o"></i> Agregar</a></li>
+          </ul>
+        </li>
+        <!-- Usuario -->
+        
         <!-- Metodologia -->
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-folder"></i><span class="app-menu__label">Metodologí­as</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
