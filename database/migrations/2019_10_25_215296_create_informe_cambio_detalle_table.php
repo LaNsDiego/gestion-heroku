@@ -20,15 +20,13 @@ class CreateInformeCambioDetalleTable extends Migration
         // +Costo
         Schema::create('detalle_informe', function (Blueprint $table) {
             $table->increments('Id');
-            $table->integer('UsuarioResponsableId')->unsigned();
+            $table->integer('InformeCambioId')->unsigned();
             $table->integer('CronogramaElementoConfiguracionId')->unsigned();
-            $table->integer('DetalleInformeId')->unsigned();
-
-            $table->string('Tiempo', 200);
+            $table->decimal('Tiempo', 10, 2);
             $table->decimal('Costo', 10, 2);
+            $table->string('Descripcion',700);
      
-            $table->foreign('DetalleInformeId')->references('Id')->on('informe_cambio');
-            $table->foreign('UsuarioResponsableId')->references('Id')->on('usuario');
+            $table->foreign('InformeCambioId')->references('Id')->on('informe_cambio');
             $table->foreign('CronogramaElementoConfiguracionId')->references('Id')->on('cronograma_elemento_configuracion');
         });
     }

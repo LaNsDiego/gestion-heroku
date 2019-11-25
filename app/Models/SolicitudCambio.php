@@ -10,14 +10,14 @@ class SolicitudCambio extends Model
     public $timestamps = false;
     protected $primaryKey = 'Id';
 
-    public function Guardar(){
-        if($this->save()){
-            return $this->id;
+    public static function GuardarSolicitud(SolicitudCambio $objsolicitudcambio){
+        if($objsolicitudcambio->save()){
+            return $objsolicitudcambio->id;
         }
         return 0 ;
         
     }
-    public static function Editar(SolicitudCambio $objsolicitudcambio)
+    public static function EditarSolicitud(SolicitudCambio $objsolicitudcambio)
     {
         if($objsolicitudcambio->save())
         {
@@ -26,11 +26,13 @@ class SolicitudCambio extends Model
         return 0;
     }
 
-    public static function Listar($UsuarioId){
+    public static function ListarSolicitud($UsuarioId){
    
         $solicitudcambio = DB::table('solicitud_cambio')
                             ->join('proyecto', 'solicitud_cambio.Proyectoid', '=', 'Proyecto.Id')
-                            ->select('solicitud_cambio.*', 'proyecto.Nombre as Nombre_Proyecto')
+                            ->join('miembro_proyecto', 'solicitud_cambio.MiembroSolicitanteId', '=', 'miembro_proyecto.UsuarioMiembroId')
+                            ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
+                            ->select('solicitud_cambio.*', 'proyecto.Nombre as Nombre_Proyecto', 'usuario.Nombre as Nombre_Solicitante', 'usuario.Apellido as Apellido_Solicitante')
                             ->where('solicitud_cambio.MiembroSolicitanteId', $UsuarioId)
                             ->orderBy('solicitud_cambio.Id','DESC')
                             ->get();
@@ -39,11 +41,27 @@ class SolicitudCambio extends Model
         return $solicitudcambio;
     }
 
-    public static function ObtenerPorId($SolicitudId){
+    public static function ListarSolucitudesAceptadas($UsuarioId){
+   
+        $solicitudcambio = DB::table('solicitud_cambio')
+                            ->join('proyecto', 'solicitud_cambio.Proyectoid', '=', 'Proyecto.Id')
+                            ->join('miembro_proyecto', 'solicitud_cambio.MiembroJefeId', '=', 'miembro_proyecto.UsuarioMiembroId')
+                            ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
+                            ->select('solicitud_cambio.*', 'proyecto.Nombre as Nombre_Proyecto', 'usuario.Nombre as Nombre_Solicitante')
+                            ->where('solicitud_cambio.MiembroJefeId', $UsuarioId)
+                            ->where('solicitud_cambio.Estado', 2)
+                            ->orderBy('solicitud_cambio.Id','DESC')
+                            ->get();
+       
+                            
+        return $solicitudcambio;
+    }
+
+    public static function ObtenerSolicitudPorId($SolicitudId){
 
         $solicitudcambio = DB::table('solicitud_cambio')
                             ->join('usuario', 'solicitud_cambio.MiembroSolicitanteId', '=', 'usuario.Id')
-                            ->select('solicitud_cambio.*', 'usuario.Usuario as Usuario_Solicitante')
+                            ->select('solicitud_cambio.*', 'usuario.Nombre as Usuario_Solicitante')
                             ->where('solicitud_cambio.Id', $SolicitudId)
                             ->first();
                             

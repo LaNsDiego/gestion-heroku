@@ -23,6 +23,7 @@ class CreateOrdenCambioDetalleTable extends Migration
             $table->date('FechaTermino');
             $table->integer('PorcertanjeAvance');
             $table->string('Predecesora', 200);
+            $table->string('Descripcion', 700);
 
             $table->foreign('OrdenCambioId')->references('Id')->on('orden_cambio');
             $table->foreign('CronogramaElementoConfiguracionId')->references('Id')->on('cronograma_elemento_configuracion');

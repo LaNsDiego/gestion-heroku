@@ -26,7 +26,7 @@ class Proyecto extends Model
     }
 
     public static function ListarPorParticipanteId($UsuarioId){
-        return Proyecto::where('Estado',1)->get();
+        return Proyecto::where('Estado','En Progreso')->get();
     }
 
 

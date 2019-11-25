@@ -3,12 +3,12 @@
 
 <!-- title -->
 <div class="app-title">
-    <h1><i class="fa fa-dashboard"></i> Atender Solicitud de  Cambio</h1>
+    <h1><i class="fa fa-dashboard"></i> Crear Informe de Solicitud de Cambio</h1>
 </div>
 <!-- content -->
 <div class="row">
     <div class="col-md-12">
-        <form action="/SolicitudCambio/guardar" method="post">
+        <form action="/SolicitudCambio/createinforme" method="post">
         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
         {{-- <input type="hidden" value="{{$Asolicitudcambio->Id}}" name="Id" id="Id"> --}}
             
@@ -17,31 +17,42 @@
                 <h3 class="tile-title">Datos del Informe de Cambio</h3>
                 <div class="tile-body">
                     <div class="form-group row">
+
                         <div class="col-md-3">
-                            <label class="control-label">Costo Economico </label>
-                            <input type="number" value="0.00" step="any" class="form-control text-right" name="Costo_Economico" id="Costo_Economico">
-                        </div>
-        
-                        <div class="col-md-3">
-                            <label class="control-label">Tiempo Estimado </label>
-                            <input type="number" value="0" step="any" class="form-control text-right" name="Costo_Economico" id="Costo_Economico">
+                            <label class="control-label">Fecha : </label>
+                            <input type="date" readonly class="form-control text-center" value="<?=date('Y-m-d')?>" name="Fecha" id="Fecha">
                         </div>
 
                         <div class="col-md-3">
                             <label class="control-label">Solicitud Asociado: </label>
-                            <input type="text" class="form-control text-right" name="Costo_Economico" id="Costo_Economico">
+                            <input type="text" readonly class="form-control text-center" value="{{ $objSolicitud->Codigo }}" name="Codigo_Solicitud" id="Codigo_Solicitud">
+                            <input type="hidden" class="form-control text-center" value="{{ $objSolicitud->Id }}" name="SolicitudCambioId" id="SolicitudCambioId">
                         </div>
+
+                        
+
+                        <div class="col-md-3">
+                            <label class="control-label">Costo Economico </label>
+                            <input required type="number" readonly value="0.00" step="any" class="form-control text-right" name="CostoEconomico" id="CostoEconomico">
+                        </div>
+        
+                        <div class="col-md-3">
+                            <label class="control-label">Tiempo Estimado (Horas) </label>
+                            <input required type="number" readonly value="0" step="any" class="form-control text-right" name="Tiempo" id="Tiempo">
+                        </div>
+
+                        
                     </div>
                     <div class="form-group row">
 
                         <div class="col-md-6">
                             <label class="control-label">Descripcion </label>
-                            <textarea name="Descripcion" id="Descripcion" class="form-control text-left" cols="30" rows="6"></textarea>
+                            <textarea required name="Descripcion" id="Descripcion" class="form-control text-left" cols="30" rows="6"></textarea>
                         </div>
 
                         <div class="col-md-6">
                             <label class="control-label">Impacto del Problema </label>
-                            <textarea name="ImpactoProblema" id="ImpactoProblema" class="form-control text-left" cols="30" rows="6"></textarea>
+                            <textarea required name="ImpactoProblema" id="ImpactoProblema" class="form-control text-left" cols="30" rows="6"></textarea>
                         </div>
 
                                 
@@ -50,7 +61,7 @@
         
                         <div class="col-md-12">
                         <br><br>
-                            <h5 class="tile-title">Elementos de Configuración</h5>
+                            <h5 class="tile-title">DETALLE DE INFORME</h5>
                         </div>
         
         
@@ -60,9 +71,9 @@
                         <div class="col-md-3">
                             <label class="control-label">Fases </label>
                             <select name="FaseIdM" id="FaseIdM" onchange="Fnc_ECS()" class="form-control">
-                                    {{-- @foreach($AFase as $be)
+                                    @foreach($ListadoFase as $be)
                                     <option value="{{ $be->Id }}" >{{ $be->Nombre }}</option>
-                                    @endforeach --}}
+                                    @endforeach
                             </select>
                         </div>
         
@@ -80,7 +91,7 @@
         
                         <div class="col-md-3">
                             <label class="control-label">Costo </label>
-                            <input type="number" step="any" class="form-control" id="CostoM" name="CostoM">
+                            <input type="number" step="any" class="form-control text-right" id="CostoM" name="CostoM">
                         </div>
         
         
@@ -94,7 +105,7 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-3">
                             <label class="control-label">. </label>
-                            <input type="button" onclick="AddDetalleOrden();" class="form-control btn btn-info" id="" name="" value="AGREGAR">
+                            <input type="button" onclick="AddDetalleCambio();" class="form-control btn btn-info" id="" name="" value="AGREGAR">
                         </div>
         
         
@@ -114,36 +125,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td class="text-left">Caso de Uso</td>
-                                        <td class="text-left">3 Horas</td>
-                                        <td class="text-right">S/. 100.00</td>
-                                        <td class="text-center">
-                                            <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-2x m-0" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-        
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td class="text-left">Caso de Uso</td>
-                                        <td class="text-left">3 Horas</td>
-                                        <td class="text-right">S/. 100.00</td>
-                                        <td class="text-center">
-                                            <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-2x m-0" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-        
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td class="text-left">Caso de Uso</td>
-                                        <td class="text-left">3 Horas</td>
-                                        <td class="text-right">S/. 100.00</td>
-                                        <td class="text-center">
-                                            <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-2x m-0" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                           
+                  
+                               
                                     
                                 </tbody>
                             </table>
@@ -152,29 +135,12 @@
                         
                     </div>
 
-                    <div class="form-group row">
-
-                        <div class= "col-md-3">
-                            <label class="control-label">Estado</label>
-                            <select name="Estado" id="Estado" class="form-control">
-                                        {{-- <option {{ $Asolicitudcambio->Estado == 1 ? 'selected':'' }} value="1">Pendiente</option>
-                                        <option {{ $Asolicitudcambio->Estado == 2 ? 'selected':'' }} value="2">Aprobado</option>
-                                        <option {{ $Asolicitudcambio->Estado == 3 ? 'selected':'' }} value="3">Rechazado</option> --}}
-                            </select>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class= "col-md-3">
-                            <label class="control-label">.</label>
-                            
-                            <button type="button"  data-toggle="modal" onclick="Fnc_ModalInforme()" class="btn btn-info form-control">GENERAR INFORME</button>
-                        </div>
-
-                        
-                    </div>
+                    
+             
                   
                 </div>
                 <div class="tile-footer">
-                    <button class="btn btn-primary text-uppercase" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Crear Solicitud</button>
+                    <button class="btn btn-primary text-uppercase" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar Informe</button>
                 </div>
             </div>
         </form>
@@ -183,35 +149,9 @@
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informe de Cambio </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="">
-            
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <script>
-    function Fnc_ModalInforme(){
-        $('#exampleModal').modal('show');
-        Fnc_ECS();
-    }
+    
     function Fnc_ECS(){
 
         var FaseId = $('#FaseIdM').val();
@@ -238,7 +178,7 @@
     }
 
 
-    function AddDetalleOrden(){
+    function AddDetalleCambio(){
 
         var FaseId = $('#FaseIdM').val();
         var ESCId = $('#ESCIdM').val();
@@ -246,8 +186,27 @@
         var Costo = $('#CostoM').val();
         var Descripcion = $('#DescripcionM').val();
         var _token = $('#_token').val();
-        
-        var MM_search = "AddDetelleOrden";
+        if(FaseId == ""){
+            alert("Seleccione una Fase");
+            return false;
+        }
+        if(ESCId == ""){
+            alert("Seleccione un ECS");
+            return false;
+        }
+        if(Tiempo == ""){
+            alert("Ingrese un Tiempo");
+            return false;
+        }
+        if(Costo == ""){
+            alert("Ingrese un Costo");
+            return false;
+        }
+        if(Descripcion == ""){
+            alert("Ingrese una Descripcion");
+            return false;
+        }
+        var MM_search = "AddDetelleCambio";
 
         var parametros = {
                             "FaseId" : FaseId,
@@ -262,7 +221,7 @@
         $.ajax({
 
                 data:  parametros,
-                url:   '../../SolicitudCambio/detalleinforme',
+                url:   '../../SolicitudCambio/AgregarDetalleInforme',
                 type:  'POST',
                 beforeSend: function () {
                 
@@ -270,9 +229,65 @@
                 success:  function (data) {
                     // console.log(data);
                     $('#BlockDetalleInforme').html(data);
+                    Tiempo_Costo();
                 }
             });
     
+    }
+
+    function Fnc_DeleteDetalleInforme(ESCId){
+
+    
+        var _token = $('#_token').val();
+
+        var parametros = {
+                            "ESCId" : ESCId,
+                            "_token" : _token, 
+                        };
+
+        $.ajax({
+
+                data:  parametros,
+                url:   '../../SolicitudCambio/EliminarDetalleInforme',
+                type:  'POST',
+                beforeSend: function () {
+                
+                },
+                success:  function (data) {
+                    // console.log(data);
+                    $('#BlockDetalleInforme').html(data);
+                    Tiempo_Costo();
+                }
+            });
+
+    }
+
+    function Tiempo_Costo(){
+
+            var MM_search = "AddDetelleCambio";
+            var _token = $('#_token').val();
+            var parametros = {
+                                
+                                "MM_search" : MM_search, 
+                                "_token" : _token, 
+                            };
+
+            $.ajax({
+
+                    data:  parametros,
+                    url:   '../../SolicitudCambio/TiempoSolicitud',
+                    type:  'POST',
+                    dataType: 'json',
+                    beforeSend: function () {
+                    
+                    },
+                    success:  function (data) {
+                     
+                        $('#Tiempo').val(data.Tiempo);
+                        $('#CostoEconomico').val(data.Costo);
+                    }
+                });
+
     }
 
     

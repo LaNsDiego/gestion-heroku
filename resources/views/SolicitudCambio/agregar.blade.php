@@ -16,7 +16,7 @@
                     <div class="form-group row">
                         <div class="col-md-9">
                             <label class="control-label">Proyecto </label>
-                            <select class="form-control" name="Proyecto_Id" id="Proyecto_Id">
+                            <select required class="form-control" name="Proyecto_Id" id="Proyecto_Id">
 
                                 @foreach($ListadoProyecto as $be)
                                 <option value="{{ $be->Id }}">{{ $be->Nombre }}</option>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Fecha </label>
-                            <input type="date" class="form-control text-center" id="Fecha" name="Fecha">
+                            <input required type="date" class="form-control text-center" id="Fecha" name="Fecha">
                         </div>
                         
                     </div>
@@ -38,11 +38,11 @@
                 <div class="tile-body">
                     <div class="form-group">
                     <label class="control-label">Objetivo</label>
-                       <input type="text" class="form-control" id="Objetivo" name="Objetivo">
+                       <input type="text" required class="form-control" id="Objetivo" name="Objetivo">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Descripción</label>
-                        <textarea class="form-control" name="Descripcion" id="Descripcion" rows="4"></textarea>
+                        <textarea required class="form-control" name="Descripcion" id="Descripcion" rows="4"></textarea>
                     </div>
                   
                 </div>

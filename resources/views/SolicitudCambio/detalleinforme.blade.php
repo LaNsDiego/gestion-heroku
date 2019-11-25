@@ -18,7 +18,7 @@
                         <td class="text-left">{{ $ADetalleInforme[$i]['Tiempo'] }}</td>
                         <td class="text-right">S/. {{ $ADetalleInforme[$i]['Costo'] }}</td>
                         <td class="text-center">
-                            <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-2x m-0" aria-hidden="true"></i></a>
+                            <a class="btn btn-danger btn-sm" onclick="Fnc_DeleteDetalleInforme({{ $ADetalleInforme[$i]['ESCId'] }})"><i class="fa fa-trash fa-2x m-0" aria-hidden="true"></i></a>
                         </td>
                     <tr>
                 <? $j++;  ?>

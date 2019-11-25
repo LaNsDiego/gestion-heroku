@@ -40,4 +40,9 @@ class CronogramaFase extends Model
         return $ObjCronogramaFase->Id;
     }
 
+    public static function ListarFasePorCronograma($Id_Cronograma){
+        
+        return CronogramaFase::where('CronogramaId',$Id_Cronograma)->get();
+    }
+
 }

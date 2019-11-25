@@ -60,6 +60,17 @@ class MiembroProyecto extends Model
         return $ObjMiembroProyecto->delete();
     }
 
+    public static function ListarMiembrosPorProyectoId($ProyectoId)
+    {
+        $ListadoMiembroProyecto = DB::table('miembro_proyecto')
+                                ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
+                                ->select('miembro_proyecto.*', 'usuario.Usuario as Nombre_Usuario')
+                                ->where('miembro_proyecto.ProyectoId', $ProyectoId)
+                                ->get();
+        return $ListadoMiembroProyecto;
+        
+    }
+
 }
 
 ?>

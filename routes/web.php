@@ -104,20 +104,32 @@ Route::get('SolicitudCambio/create', 'SolicitudCambioController@FrmAgregar')->na
 Route::post('SolicitudCambio/store', 'SolicitudCambioController@ActAgregarSolicitud')->name('SolicitudCambio.store');
 //EDITAR
 Route::get('SolicitudCambio/edit/{SolicitudId}', 'SolicitudCambioController@FrmEditar')->name('SolicitudCambio.edit');
-Route::post('SolicitudCambio/update', 'SolicitudCambioController@ActEditar')->name('SolicitudCambio.update');
+Route::post('SolicitudCambio/update', 'SolicitudCambioController@ActEditarSolicitud')->name('SolicitudCambio.update');
 //VER
 Route::get('SolicitudCambio/informe/{SolicitudId}', 'SolicitudCambioController@FrmInformeCambio')->name('SolicitudCambio.informe');
 //ELIMINAR
 Route::get('SolicitudCambio/{SolicitudId}', 'SolicitudCambioController@delete')->name('SolicitudCambio.delete');
 
-Route::post('SolicitudCambio/detalleinforme', 'SolicitudCambioController@AccDetalleInforme')->name('detalleinforme.detalleinforme');
-Route::get('SolicitudCambio/ViewDetalleInforme', 'SolicitudCambioController@ViewDetalleInforme')->name('SolicitudCambio.ViewDetalleInforme');
-Route::post('SolicitudCambio/ViewDetalleInforme', 'SolicitudCambioController@ViewDetalleInforme')->name('SolicitudCambio.ViewDetalleInforme');
 
 Route::post('SolicitudCambio/ViewESC', 'SolicitudCambioController@ViewESC')->name('SolicitudCambio.ViewESC');
+Route::post('SolicitudCambio/AgregarDetalleInforme', 'SolicitudCambioController@AccAgregarDetalleInforme')->name('detalleinforme.AgregarDetalleInforme');
+Route::post('SolicitudCambio/EliminarDetalleInforme', 'SolicitudCambioController@AccEliminarDetalleInforme')->name('detalleinforme.EliminarDetalleInforme');
+Route::post('SolicitudCambio/TiempoSolicitud', 'SolicitudCambioController@ActTiempoSolicitud')->name('SolicitudCambio.TiempoSolicitud');
+
+Route::post('SolicitudCambio/createinforme', 'SolicitudCambioController@ActAgregarInformeCambio')->name('SolicitudCambio.createinforme');
+Route::post('SolicitudCambio/respondersolicitud', 'SolicitudCambioController@ActResponderSolicitud')->name('SolicitudCambio.respondersolicitud');
 
 
-Route::post('ajaxRequest', 'SolicitudCambioController@ajaxRequestPost');
+//////ORDEN DE CAMBIO
+Route::get('OrdenCambio/listar', 'OrdenCambioController@FrmListar')->name('OrdenCambio.listar');
+Route::get('OrdenCambio/create', 'OrdenCambioController@FrmAgregar')->name('OrdenCambio.create');
+
+///DETALLE ORDEN DE CAMBIO
+
+Route::post('OrdenCambio/FasePorProyecto', 'OrdenCambioController@ActFasePorProyecto')->name('OrdenCambio.FasePorProyecto');
+Route::post('OrdenCambio/ECSPorFase', 'OrdenCambioController@ActECSPorFase')->name('OrdenCambio.ECSPorFase');
+Route::post('OrdenCambio/MiembrosPorProyeto', 'OrdenCambioController@ActMiembrosPorProyeto')->name('OrdenCambio.MiembrosPorProyeto');
+
 
 Route::post('/version/agregar', 'VersionECSController@ActAgregar');
 Route::get('/version/ver/{Id}', 'VersionECSController@FrmVer');
