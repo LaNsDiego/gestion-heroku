@@ -25,18 +25,32 @@
           </thead>
           <tbody>
 
-                @foreach($ListadoSolicitud as $solicitudcambio)
+                @foreach($ListadoSolicitud as $be)
       
                   <tr>
                       <td class="text-center">1</td>
-                      <td class="text-left">{{ $solicitudcambio->Codigo }}</td>
-                      <td class="text-left">{{ $solicitudcambio->Nombre_Proyecto }}</td>
-                      <td class="text-left">{{ $solicitudcambio->Nombre_Solicitante.' '.$solicitudcambio->Apellido_Solicitante }}</td>
-                      <td class="text-center">{{ $solicitudcambio->Estado == 1 ? 'Pendiente':'Realizado' }}</td>
-                      <td class="text-center">{{ $solicitudcambio->Fecha }}</td>
-                      <td>
-                          <a href="../../SolicitudCambio/informe/{{$solicitudcambio->Id}}" class="btn btn-primary btn-sm"><i class="fa fa-file-text" aria-hidden="true"></i></a>
-                          <a href="./../SolicitudCambio/edit/{{$solicitudcambio->Id}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
+                      <td class="text-left">{{ $be->Codigo }}</td>
+                      <td class="text-left">{{ $be->Nombre_Proyecto }}</td>
+                      <td class="text-left">{{ $be->Nombre_Solicitante.' '.$be->Apellido_Solicitante }}</td>
+                      <td class="text-center">
+                        @php
+                            switch($be->Estado){
+                              case 1: $Estado = 'Pendiente'; break;
+                              case 2: $Estado = 'Atendido'; break;
+                              case 3: $Estado = 'Aceptado'; break;
+                              case 4: $Estado = 'Rechazado'; break;
+                            }
+                        @endphp
+                        
+                        {{ $Estado}}
+                      </td>
+                      <td class="text-center">{{ $be->Fecha }}</td>
+                      <td class="text-center">
+                          @if (Auth::user()->TipoUsuarioId == 2)
+                          <a href="../../SolicitudCambio/informe/{{$be->Id}}" class="btn btn-primary btn-sm"><i class="fa fa-file-text" aria-hidden="true"></i></a>    
+                          @endif
+                          
+                          <a href="./../SolicitudCambio/edit/{{$be->Id}}" class="btn btn-warning btn-sm <?=$be->Estado == 1 ? '':'disabled' ?> "><i class="fa fa-pencil fa-2x m-0" aria-hidden="true"></i></a>
                           
                       </td>
                   </tr>

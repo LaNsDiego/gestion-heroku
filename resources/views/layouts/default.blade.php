@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/font-awesome/css/font-awesome.min.css') }}">
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
   </head>
   <body class="app sidebar-mini rtl">
     @include('includes.header')

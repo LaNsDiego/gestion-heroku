@@ -9,8 +9,12 @@ use App\Models\Cronograma as Cronograma;
 use App\Models\CronogramaFase as CronogramaFase;
 use App\Models\CronogramaElementoConfiguracion as CronogramaElementoConfiguracion;
 
+use App\Models\MiembroProyecto as MiembroProyecto;
+
 use App\Models\InformeCambio as InformeCambio;
 use App\Models\DetalleInformeCambio as DetalleInformeCambio;
+
+use Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,14 +23,16 @@ use App\Http\Controllers\Controller;
 class SolicitudCambioController extends Controller
 {
     public function FrmListar(){
-
-        $ListadoSolicitud = SolicitudCambio::ListarSolicitud(1);
+        // DB::enableQueryLog();
+        
+        $ListadoSolicitud = SolicitudCambio::ListarSolicitud(Auth::user()->Id,Auth::user()->TipoUsuarioId);
+        // dd(DB::getQueryLog());
         return view('SolicitudCambio.listar', ['ListadoSolicitud' => $ListadoSolicitud]);
 
     }
     public function FrmAgregar(){
         
-        $ListadoProyecto = Proyecto::ListarPorParticipanteId(1);
+        $ListadoProyecto = MiembroProyecto::ListarProyectosPorUsuarioId(Auth::user()->Id);
        
         return view('SolicitudCambio.agregar', ['ListadoProyecto' => $ListadoProyecto]);
     }
@@ -34,15 +40,16 @@ class SolicitudCambioController extends Controller
 
     public function ActAgregarSolicitud(Request $request){
         
+        $objMiembro = MiembroProyecto::ObtenerMiembroPorUsuarioProyecto(Auth::user()->Id,$request->Proyecto_Id);
         $solicitudcambio = new SolicitudCambio;
         $solicitudcambio->Codigo = "SC-".rand(10,99).rand(100,999);
         $solicitudcambio->Proyectoid = $request->Proyecto_Id;
-        $solicitudcambio->Miembrosolicitanteid = 1;
+        $solicitudcambio->Miembrosolicitanteid = $objMiembro->Id;
         $solicitudcambio->Fecha = $request->Fecha;
         $solicitudcambio->Objetivo = $request->Objetivo;
         $solicitudcambio->Descripcion = $request->Descripcion;
         $solicitudcambio->Estado = 1;
-        $solicitudcambio->Miembrojefeid = 1;
+        $solicitudcambio->Miembrojefeid = $objMiembro->Id;
         $solicitudcambio->Respuesta = '';
         SolicitudCambio::GuardarSolicitud($solicitudcambio);
         return redirect()->action('SolicitudCambioController@FrmListar');
@@ -64,7 +71,7 @@ class SolicitudCambioController extends Controller
         // dd($objsolicitudcambio);
 
         $objsolicitudcambio = SolicitudCambio::find($request->Id);
-        $objsolicitudcambio->Proyectoid = $request->Proyecto_Id;
+        $objsolicitudcambio->ProyectoId = $request->Proyecto_Id;
         $objsolicitudcambio->Fecha = $request->Fecha;
         $objsolicitudcambio->Objetivo = $request->Objetivo;
         $objsolicitudcambio->Descripcion = $request->Descripcion;
@@ -213,7 +220,8 @@ class SolicitudCambioController extends Controller
     
 
     public function ActAgregarInformeCambio(Request $request){
-        // dd($request);
+        $ObjSolicitud = SolicitudCambio::ObtenerSolicitudPorId($request->SolicitudCambioId);
+        $objMiembro = MiembroProyecto::ObtenerMiembroPorUsuarioProyecto(Auth::user()->Id,$ObjSolicitud->ProyectoId);
         $informecambio = new InformeCambio;
         $informecambio->Codigo = "IC-".rand(10,99).rand(100,999);
         $informecambio->SolicitudCambioId = $request->SolicitudCambioId;
@@ -222,11 +230,15 @@ class SolicitudCambioController extends Controller
         $informecambio->CostoEconomico = $request->CostoEconomico;
         $informecambio->ImpactoProblema = $request->ImpactoProblema;
         $informecambio->Fecha = $request->Fecha;
-        $informecambio->Miembrojefeid = 1;
-        $informecambio->Estado = 'ACTIVO';
+        $informecambio->Miembrojefeid = $objMiembro->Id;
+        $informecambio->Estado = 'Activo';
         $InformeId = InformeCambio::GuardarInforme($informecambio);
         
         if($InformeId > 0){
+            $objsolicitudcambio = SolicitudCambio::find($request->SolicitudCambioId);
+            $objsolicitudcambio->Estado = 2;
+            SolicitudCambio::EditarSolicitud($objsolicitudcambio);
+             
 
             $data = session('DInformeCambio');
             for ($i=0; $i < count($data); $i++) { 
@@ -253,13 +265,23 @@ class SolicitudCambioController extends Controller
     }
 
     public function ActResponderSolicitud(Request $request){
-        // dd($request->all());
+        
+        
         $objsolicitudcambio = SolicitudCambio::find($request->SolicitudCambioId);
+        
+        $objMiembro = MiembroProyecto::ObtenerMiembroPorUsuarioProyecto(Auth::user()->Id,$objsolicitudcambio->ProyectoId);
         $objsolicitudcambio->Respuesta = $request->Respuesta;
         $objsolicitudcambio->Estado = $request->Estado;
-        $objsolicitudcambio->MiembroJefeId = 1;
+        $objsolicitudcambio->MiembroJefeId = $objMiembro->Id;
+
         if(SolicitudCambio::EditarSolicitud($objsolicitudcambio) > 0){
-            return redirect()->action('SolicitudCambioController@FrmListar');
+            if($request->Estado == 3){
+                return redirect()->action('OrdenCambioController@FrmAgregar');
+            }
+            if($request->Estado == 4){
+                return redirect()->action('SolicitudCambioController@FrmListar');
+            }
+            
         }
         
   

@@ -19,15 +19,15 @@
                             <select required class="form-control" name="Proyecto_Id" id="Proyecto_Id">
 
                                 @foreach($ListadoProyecto as $be)
-                                <option value="{{ $be->Id }}">{{ $be->Nombre }}</option>
+                                <option value="{{ $be->ProyectoId }}">{{ $be->Codigo_Proyecto }} {{ $be->Nombre_Proyecto }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Fecha </label>
-                            <input required type="date" class="form-control text-center" id="Fecha" name="Fecha">
+                            <input required type="date" value="<?=date('Y-m-d')?>" class="form-control text-center" id="Fecha" name="Fecha">
                         </div>
-                        
+                    
                     </div>
                     
                 </div>

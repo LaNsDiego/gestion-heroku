@@ -123,13 +123,17 @@ Route::post('SolicitudCambio/respondersolicitud', 'SolicitudCambioController@Act
 //////ORDEN DE CAMBIO
 Route::get('OrdenCambio/listar', 'OrdenCambioController@FrmListar')->name('OrdenCambio.listar');
 Route::get('OrdenCambio/create', 'OrdenCambioController@FrmAgregar')->name('OrdenCambio.create');
-
+Route::post('OrdenCambio/createorden', 'OrdenCambioController@ActGuardarOrdenCambio')->name('OrdenCambio.createorden');
+Route::get('OrdenCambio/edit/{Id}', 'OrdenCambioController@FrmEditar')->name('OrdenCambio.edit');
+Route::post('OrdenCambio/editorden', 'OrdenCambioController@ActEditarOrdenCambio')->name('OrdenCambio.editorden');
 ///DETALLE ORDEN DE CAMBIO
 
 Route::post('OrdenCambio/FasePorProyecto', 'OrdenCambioController@ActFasePorProyecto')->name('OrdenCambio.FasePorProyecto');
 Route::post('OrdenCambio/ECSPorFase', 'OrdenCambioController@ActECSPorFase')->name('OrdenCambio.ECSPorFase');
 Route::post('OrdenCambio/MiembrosPorProyeto', 'OrdenCambioController@ActMiembrosPorProyeto')->name('OrdenCambio.MiembrosPorProyeto');
 
+Route::post('OrdenCambio/AgregarDetalleOrden', 'OrdenCambioController@ActAgregarDetalleOrden')->name('OrdenCambio.AgregarDetalleOrden');
+Route::post('OrdenCambio/EliminarDetalleOrden', 'OrdenCambioController@ActEliminarDetalleOrden')->name('OrdenCambio.EliminarDetalleOrden');
 
 Route::post('/version/agregar', 'VersionECSController@ActAgregar');
 Route::get('/version/ver/{Id}', 'VersionECSController@FrmVer');

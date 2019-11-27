@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class MiembroProyecto extends Model
 {
     protected $primaryKey ="Id";
@@ -64,10 +64,43 @@ class MiembroProyecto extends Model
     {
         $ListadoMiembroProyecto = DB::table('miembro_proyecto')
                                 ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
-                                ->select('miembro_proyecto.*', 'usuario.Usuario as Nombre_Usuario')
+                                ->select('miembro_proyecto.*', 'usuario.Nombre as Nombre_Usuario','usuario.Apellido as Apellido_Usuario')
                                 ->where('miembro_proyecto.ProyectoId', $ProyectoId)
                                 ->get();
         return $ListadoMiembroProyecto;
+        
+    }
+
+    public static function ListarProyectosPorUsuarioId($UsuarioId)
+    {
+        $ListadoMiembroProyecto = DB::table('miembro_proyecto')
+                                ->join('proyecto', 'proyecto.Id', '=', 'miembro_proyecto.ProyectoId')
+                                ->select('miembro_proyecto.*', 'proyecto.Codigo as Codigo_Proyecto', 'proyecto.Nombre as Nombre_Proyecto', 'proyecto.Id as ProyectoId')
+                                ->where('miembro_proyecto.UsuarioMiembroId', $UsuarioId)
+                                ->get();
+        return $ListadoMiembroProyecto;
+        
+    }
+
+    public static function ObtenerMiembroPorId($MiembroId)
+    {
+        $objMiembroProyecto = DB::table('miembro_proyecto')
+                                ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
+                                ->select('miembro_proyecto.*', 'usuario.Nombre as Nombre_Usuario', 'usuario.Apellido as Apellido_Usuario')
+                                ->where('miembro_proyecto.Id', $MiembroId)
+                                ->first();
+        return $objMiembroProyecto;
+        
+    }
+
+    public static function ObtenerMiembroPorUsuarioProyecto($UsuarioId,$ProyectoId)
+    {
+        $objMienbro = DB::table('miembro_proyecto')
+                                ->select('miembro_proyecto.*')
+                                ->where('miembro_proyecto.UsuarioMiembroId', $UsuarioId)
+                                ->where('miembro_proyecto.ProyectoId', $ProyectoId)
+                                ->first();
+        return $objMienbro;
         
     }
 

@@ -118,8 +118,9 @@
                             <label class="control-label">Estado </label>
                             <select name="Estado" id="Estado" class="form-control">
                                 <option {{ $objSolicitud->Estado == 1 ? 'selected':'' }} value="1">Pendiente</option>
-                                <option {{ $objSolicitud->Estado == 2 ? 'selected':'' }} value="2">Aceptado</option>
-                                <option {{ $objSolicitud->Estado == 3 ? 'selected':'' }} value="3">Rechazado</option>
+                                <option {{ $objSolicitud->Estado == 2 ? 'selected':'' }} value="2">Atendido</option>
+                                <option {{ $objSolicitud->Estado == 3 ? 'selected':'' }} value="3">Aceptado</option>
+                                <option {{ $objSolicitud->Estado == 4 ? 'selected':'' }} value="4">Rechazado</option>
                             </select>
                             <br>
                             <button class="btn btn-success text-uppercase form-control" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
