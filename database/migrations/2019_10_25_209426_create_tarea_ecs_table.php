@@ -26,8 +26,10 @@ class CreateTareaECSTable extends Migration
             $table->string('Justificacion',1000);
             $table->integer('PorcentajeAvance');
             $table->string('UrlEvidencia',200);
+            $table->integer('TareaPadreId')->nullable()->unsigned();
 
-            
+
+            $table->foreign('TareaPadreId')->references('Id')->on('tarea_ecs');
             $table->foreign('VersionECSId')->references('Id')->on('version_ecs');
             $table->foreign('MiembroResponsableId')->references('Id')->on('miembro_proyecto');
 

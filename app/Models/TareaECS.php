@@ -33,4 +33,8 @@ class TareaECS extends Model
     public function Miembro(){
         return $this->hasOne('App\Models\MiembroProyecto', 'Id','MiembroResponsableId')->with('Usuario');
     }
+
+    public function Padre(){
+        return $this->hasOne('App\Models\TareaECS', 'Id','TareaPadreId');
+    }
 }

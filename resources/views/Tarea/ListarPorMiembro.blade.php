@@ -25,7 +25,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-tarea" role="tabpanel" aria-labelledby="pills-tarea-tab">
                             {{--                        TAREAS NO TERMINADAS --}}
-                            <table class="table table-hover table-bordered" >
+                            <table class="table table-hover table-bordered" id="TableData">
                                 <thead>
                                 <tr>
                                     <th class="text-center" width="25px">#</th>
@@ -69,13 +69,14 @@
 
 {{--                        TAREAS TERMINADAS --}}
                         <div class="tab-pane fade" id="pills-dependencias" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <table class="table table-hover table-bordered" >
+                            <table class="table table-hover table-bordered" id="TableData">
                                 <thead>
                                 <tr>
                                     <th class="text-center" width="25px">#</th>
                                     <th>CODIGO</th>
-                                    <th>RESPONSABLE</th>
-                                    <th>DESCRIPCION</th>
+                                    <th>PROYECTO</th>
+                                    <th>FASE</th>
+                                    <th>ELEMENT. CONF.</th>
                                     <th>FEC. DE INICIO</th>
                                     <th>FEC. DE TERMINO</th>
                                     <th class="text-center">% AVANCE</th>
@@ -87,9 +88,9 @@
                                     <tr>
                                         <td>{{$Indice + 1}}</td>
                                         <td class="text-center">{{$ObjTarea->Codigo}}</td>
-                                        <td>{{$ObjTarea->Miembro->Usuario->Nombre . " " .
-                                    $ObjTarea->Miembro->Usuario->Apellido}}</td>
-                                        <td>{{$ObjTarea->Descripcion}}</td>
+                                        <td>{{$ObjTarea->Proyecto}}</td>
+                                        <td>{{$ObjTarea->Fase}}</td>
+                                        <td>{{$ObjTarea->ElementoNombre}}</td>
                                         <td>{{$ObjTarea->FechaInicio}}</td>
                                         <td>{{$ObjTarea->FechaTermino}}</td>
                                         <td>{{$ObjTarea->PorcentajeAvance}}%</td>

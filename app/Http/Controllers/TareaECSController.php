@@ -30,6 +30,11 @@ class TareaECSController extends Controller
         $ObjTarea->VersionECSId = $request->input('TxtVersionECSId');
         $ObjTarea->PorcentajeAvance = 0;
         $ObjTarea->UrlEvidencia = 'github.com/lansdiego/prj1/evidencia1.php';
+        if($request->input("TxTTareaPadreId") != ""){
+            $ObjTarea->TareaPadreId = $request->input("TxTTareaPadreId");
+        }
+
+
         TareaECS::Agregar($ObjTarea);
         return redirect()->back();
     }

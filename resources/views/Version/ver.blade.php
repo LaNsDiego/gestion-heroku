@@ -32,7 +32,7 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-tarea" role="tabpanel" aria-labelledby="pills-tarea-tab">
-                            <table class="table table-hover table-bordered" >
+                            <table class="table table-hover table-bordered DataTableClase" >
                             <thead>
                             <tr>
                                 <th class="text-center" width="25px">#</th>
@@ -65,7 +65,35 @@
                             </table>
                         </div>
                         <div class="tab-pane fade" id="pills-dependencias" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            dependencias
+                            <table class="table table-hover table-bordered DataTableClase" >
+                                <thead>
+                                <tr>
+                                    <th class="text-center" width="25px">#</th>
+                                    <th>CODIGO</th>
+{{--                                    <th>DESCRIPCION</th>--}}
+{{--                                    <th>FEC. DE INICIO</th>--}}
+{{--                                    <th>FEC. DE TERMINO</th>--}}
+                                    <th>REQUIERE DE .</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($ListadoTarea as $Indice => $ObjTarea)
+                                    <tr>
+                                        <td>{{$Indice + 1}}</td>
+                                        <td>{{$ObjTarea->Codigo}}</td>
+
+{{--                                        <td>{{$ObjTarea->Descripcion}}</td>--}}
+{{--                                        <td>{{$ObjTarea->FechaInicio}}</td>--}}
+{{--                                        <td>{{$ObjTarea->FechaTermino}}</td>--}}
+                                        @if($ObjTarea->Padre != null)
+                                            <td>{{$ObjTarea->Padre->Codigo}}</td>
+                                        @else
+                                            <td> -- </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -117,6 +145,20 @@
                                     <option disabled selected>Seleccione una opción...</option>
                                     @foreach($ListadoMiembro as $ObjMiembro)
                                         <option value="{{$ObjMiembro->Id}}">{{$ObjMiembro->Nombre}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h5 class="modal-title pb-2">Dependencia</h5>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label class="control-label" for="TxTTareaPadreId">Tarea Padre</label>
+                                <select id="TxTTareaPadreId" name="TxTTareaPadreId" class="form-control">
+                                    <option disabled selected>Seleccione una opción...</option>
+                                    @foreach($ListadoTarea as $ObjTarea)
+                                        <option value="{{$ObjTarea->Id}}">{{$ObjTarea->Descripcion}}</option>
                                     @endforeach
                                 </select>
                             </div>
