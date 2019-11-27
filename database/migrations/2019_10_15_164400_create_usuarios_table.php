@@ -20,7 +20,9 @@ class CreateUsuariosTable extends Migration
             $table->string('Nombre', 200);
             $table->string('Apellido', 200);
             $table->string('Correo', 200)->unique();
-            $table->string('Clave', 250);
+            $table->string('password', 250);
+            $table->integer('TipoUsuarioId')->unsigned();
+            $table->foreign('TipoUsuarioId')->references('Id')->on('tipo_usuario');
             //$table->rememberToken();
         });
     }

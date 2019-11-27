@@ -26,6 +26,15 @@
                         <label class="control-label">Correo electrónico *</label>
                         <input class="form-control" name="TxtCorreo" type="email" required>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo de Usuario</label>
+                        <select name="TxtTipoUsuarioId" class="form-control" required>
+                            <option value="">[SELECCIONE UN TIPO DE USUARIO]</option>
+                            @foreach($ListadoTipoUsuario as $TipoUsuario)
+                            <option value="{{ $TipoUsuario->Id }}">{{ $TipoUsuario->Nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="tile-footer">
                     <div class="form-group">

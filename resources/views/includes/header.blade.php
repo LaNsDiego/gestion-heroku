@@ -1,5 +1,5 @@
 <!-- Navbar-->
-<header class="app-header"><a class="app-header__logo" href="/">SCM</a>
+<header class="app-header"><a class="app-header__logo" href="{{ url('dashboard') }}">SCM</a>
       <!-- Sidebar toggle button-->
       <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
@@ -9,7 +9,7 @@
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
             <li><a class="dropdown-item" href=""><i class="fa fa-cog fa-lg"></i> Ajustes</a></li>
             <li><a class="dropdown-item" href=""><i class="fa fa-user fa-lg"></i> Perfil</a></li>
-            <li><a class="dropdown-item" href=""><i class="fa fa-sign-out fa-lg"></i> Cerrar sesión</a></li>
+            <li><a class="dropdown-item" href="{{ url('logout') }}"><i class="fa fa-sign-out fa-lg"></i>Cerrar sesión</a></li>
           </ul>
         </li>
       </ul>

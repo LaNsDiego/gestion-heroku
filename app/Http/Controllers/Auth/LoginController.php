@@ -2,54 +2,40 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function FrmLogin()
     {
-        $this->middleware('guest')->except('logout');
+        return view('auth.login');
     }
 
-    public function Login()
+    public function Login(Request $request)
     {
         $this->validate(request(), [
-            'email' => 'email|required|string',
-            'password' => 'required|string'
+            'TxtCorreo' => 'email|required|string',
+            'TxtClave' => 'required|string'
         ]);
+
+        $credentials = [
+            'Correo' => $request->TxtCorreo,
+            'password' => $request->TxtClave
+        ];
+
+        if(Auth::attempt($credentials))
+        {
+            return redirect()->intended('dashboard');
+        }
+
+        return back()->withInput(request(['TxtCorreo']));
     }
 
     public function Logout()
     {
         Auth::logout();
+        return redirect('/');
     }
 }

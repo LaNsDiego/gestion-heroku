@@ -37,6 +37,7 @@ class Usuario extends Model
     {
         return Usuario::find($UsuarioId);
     }
+    
 }
 
 ?>

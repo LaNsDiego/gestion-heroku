@@ -10,16 +10,16 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/font-awesome/css/font-awesome.min.css') }}">
   </head>
   <body class="app sidebar-mini rtl">
     @include('includes.header')
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="{{ url('assets/img/avatar.jpg') }}" alt="User Image">
         <div>
-          <p class="app-sidebar__user-name">Diego</p>
+          <p class="app-sidebar__user-name">{{ auth()->user()->Nombre }}</p>
           <p class="app-sidebar__user-designation">Administrador</p>
         </div>
       </div>

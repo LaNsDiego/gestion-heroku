@@ -20,15 +20,15 @@
         <h2 class="mt-3" style="font-weight:400">Gestión de la Configuración de Software</h2>
       </div>
       <div class="login-box">
-        <form class="login-form" action="{{ route('login') }}" method="POST">
+        <form class="login-form" action="{{ url('login') }}" method="POST">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Iniciar Sesión</h3>
           <div class="form-group">
             <label class="control-label">Usuario</label>
-            <input class="form-control" name="username" type="text" placeholder="Usuario" autofocus>
+            <input class="form-control" name="TxtCorreo" type="email" placeholder="Usuario" value="{{ old('TxtCorreo') }}" required autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">Contraseña</label>
-            <input class="form-control" name="password" type="password" placeholder="Contraseña">
+            <input class="form-control" name="TxtClave" type="password" required placeholder="Contraseña">
           </div>
           <div class="form-group btn-container">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

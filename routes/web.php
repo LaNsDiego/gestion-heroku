@@ -13,15 +13,15 @@
 
 use Illuminate\Http\Request; 
 
-Route::get('/', function () {
-    return view('pages.home');
-});
+//Auth OK
+Route::get('/', 'Auth\LoginController@FrmLogin')->middleware('guest');
+Route::post('login', 'Auth\LoginController@Login');
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+//start middleware
+Route::middleware('Administrador')->group(function(){
 
-//Route::post('/login', 'Auth\LoginController@Login')->name('login');
+Route::get('logout', 'Auth\LoginController@Logout');
+Route::get('dashboard', 'DashboardController@Index');
 
 //Usuario OK
 Route::prefix('usuario')->group(function () {
@@ -135,4 +135,7 @@ Route::post('/version/agregar', 'VersionECSController@ActAgregar');
 Route::get('/version/ver/{Id}', 'VersionECSController@FrmVer');
 Route::post('/tarea/agregar', 'TareaECSController@Agregar');
 
+
+});
+//end middleware
 ?>
