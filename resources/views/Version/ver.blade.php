@@ -50,7 +50,8 @@
                                 <tr>
                                     <td>{{$Indice + 1}}</td>
                                     <td class="text-center">{{$ObjTarea->Codigo}}</td>
-                                    <td>{{$ObjTarea->Miembro->Usuario->Usuario}}</td>
+                                    <td>{{$ObjTarea->Miembro->Usuario->Nombre . " " .
+                                    $ObjTarea->Miembro->Usuario->Apellido}}</td>
                                     <td>{{$ObjTarea->Descripcion}}</td>
                                     <td>{{$ObjTarea->FechaInicio}}</td>
                                     <td>{{$ObjTarea->FechaTermino}}</td>

@@ -21,7 +21,7 @@ class Proyecto extends Model
         return Proyecto::findOrFail($ProyectoId);
     }
 
-    public static function ListarPorUsuarioId($UsuarioId){
+    public static function ListarPorJefeUsuarioId($UsuarioId){
         return Proyecto::where('UsuarioJefeId',$UsuarioId)->get();
     }
 

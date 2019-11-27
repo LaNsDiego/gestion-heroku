@@ -3,9 +3,16 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Models\Cronograma;
+use App\Models\CronogramaElementoConfiguracion;
+use App\Models\CronogramaFase;
 use App\Models\MiembroProyecto;
+use App\Models\Proyecto;
 use App\Models\TareaECS;
+use App\Models\VersionECS;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 
@@ -26,4 +33,51 @@ class TareaECSController extends Controller
         TareaECS::Agregar($ObjTarea);
         return redirect()->back();
     }
+
+    public function FrmListarPorMiembro(){
+         $MiembroId = MiembroProyecto::where('UsuarioMiembroId',Auth::user()->Id)->first()->Id;
+        $ListadoTarea = TareaECS::where('MiembroResponsableId',$MiembroId)->where('PorcentajeAvance','<',100)->get()->map(function($ObjTarea){
+//            $ObjTarea->Proyecto
+            $ObjVersion = VersionECS::where('Id',$ObjTarea->VersionECSId)->first();
+            $ObjTarea->VersionCodigo =  $ObjVersion->Version;
+            $ObjCEC = CronogramaElementoConfiguracion::where('Id',$ObjVersion->ElementoConfiguracionId)->first();
+            $ObjTarea->ElementoNombre =  $ObjCEC->Nombre;
+            $ObjCronogramaFase = CronogramaFase::where('Id',$ObjCEC->CronogramaFaseId)->first();
+            $ObjTarea->Fase = $ObjCronogramaFase->Nombre;
+            $ObjCronograma = Cronograma::where('Id',$ObjCronogramaFase->CronogramaId)->first();
+            $ObjTarea->Proyecto = Proyecto::where('Id', $ObjCronograma->ProyectoId)->first()->Nombre;
+            return $ObjTarea;
+        });
+
+        $ListadoTareaTerminado = TareaECS::where('MiembroResponsableId',$MiembroId)->where('PorcentajeAvance',100)->get()->map(function($ObjTarea){
+//            $ObjTarea->Proyecto
+            $ObjVersion = VersionECS::where('Id',$ObjTarea->VersionECSId)->first();
+            $ObjTarea->VersionCodigo =  $ObjVersion->Version;
+            $ObjCEC = CronogramaElementoConfiguracion::where('Id',$ObjVersion->ElementoConfiguracionId)->first();
+            $ObjTarea->ElementoNombre =  $ObjCEC->Nombre;
+            $ObjCronogramaFase = CronogramaFase::where('Id',$ObjCEC->CronogramaFaseId)->first();
+            $ObjTarea->Fase = $ObjCronogramaFase->Nombre;
+            $ObjCronograma = Cronograma::where('Id',$ObjCronogramaFase->CronogramaId)->first();
+            $ObjTarea->Proyecto = Proyecto::where('Id', $ObjCronograma->ProyectoId)->first()->Nombre;
+            return $ObjTarea;
+        });
+
+        return view('Tarea.ListarPorMiembro',[
+            'ListadoTarea' =>$ListadoTarea,
+            'ListadoTareaTerminado' => $ListadoTareaTerminado
+        ]);
+
+    }
+
+
+    public function ActEditar($Id,Request $request){
+        $ObjTarea = TareaECS::find($Id);
+        if($ObjTarea != null){
+            $ObjTarea->PorcentajeAvance = $request->input('TxtPorcentajeAvance');
+            $ObjTarea->UrlEvidencia = $request->input('TxtUrlEvidencia');
+            TareaECS::Editar($ObjTarea);
+        }
+        return redirect()->back();
+    }
 }
+
