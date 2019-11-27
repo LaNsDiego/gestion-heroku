@@ -73,6 +73,6 @@ $TU = Auth::user()->TipoUsuarioId;
         @endif
 
         @if($TU==2)
-        <li><a class="app-menu__item" href="{{ url('mis-tareas/listar') }}"><i class="app-menu__icon fa fa-folder"></i><span class="app-menu__label">Reportes</span></a></li>
+        <li><a class="app-menu__item" href="{{ url('reportes') }}"><i class="app-menu__icon fa fa-folder"></i><span class="app-menu__label">Reportes</span></a></li>
         @endif
 </ul>

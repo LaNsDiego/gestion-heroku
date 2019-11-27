@@ -4,7 +4,6 @@
 <!-- title -->
 <div class="app-title">
     <h1><i class="fa fa-dashboard"></i> Listado de Proyectos </h1>
-    {{Auth::user()}}
 </div>
 <!-- content -->
 <div class="row">

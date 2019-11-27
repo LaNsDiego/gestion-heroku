@@ -21,7 +21,10 @@
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="{{ url('assets/img/avatar.jpg') }}" alt="User Image">
         <div>
           <p class="app-sidebar__user-name">{{ auth()->user()->Nombre }}</p>
-          <p class="app-sidebar__user-designation">Administrador</p>
+          @php
+          $tipo = Auth::user()->with('TipoUsuario')->find(Auth::Id());
+          @endphp
+          <p class="app-sidebar__user-designation">{{ $tipo->tipousuario->Nombre }}</p>
         </div>
       </div>
       @include('includes.sidebar')
@@ -44,5 +47,6 @@
     <script type="text/javascript" src="/assets/js/plugins/dataTables.bootstrap.min.js"></script>
     <!-- Page specific javascripts-->
     <script src="/assets/js/functions.js"></script>
+    @yield('scripts')
   </body>
 </html>

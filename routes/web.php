@@ -22,6 +22,7 @@ Route::middleware('Administrador')->group(function(){
 
 Route::get('logout', 'Auth\LoginController@Logout');
 Route::get('dashboard', 'DashboardController@Index');
+Route::get('reportes', 'DashboardController@Reportes');
 
 //Usuario OK
 Route::prefix('usuario')->group(function () {

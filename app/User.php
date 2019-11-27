@@ -29,4 +29,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];    
+
+    public function TipoUsuario()
+    {
+        return $this->belongsTo('App\Models\TipoUsuario', 'TipoUsuarioId');
+    }
 }
