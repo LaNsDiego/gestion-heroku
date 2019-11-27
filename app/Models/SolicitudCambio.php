@@ -30,7 +30,7 @@ class SolicitudCambio extends Model
         
         if($TipoUsuarioId == 2){
             $solicitudcambio = DB::table('solicitud_cambio')
-            ->join('proyecto', 'solicitud_cambio.Proyectoid', '=', 'Proyecto.Id')
+            ->join('proyecto', 'solicitud_cambio.ProyectoId', '=', 'proyecto.Id')
             ->join('miembro_proyecto', 'solicitud_cambio.MiembroJefeId', '=', 'miembro_proyecto.Id')
             ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
             ->select('solicitud_cambio.*', 'proyecto.Nombre as Nombre_Proyecto', 'usuario.Nombre as Nombre_Solicitante', 'usuario.Apellido as Apellido_Solicitante')
@@ -40,7 +40,7 @@ class SolicitudCambio extends Model
             return $solicitudcambio;
         }else{
             $solicitudcambio = DB::table('solicitud_cambio')
-            ->join('proyecto', 'solicitud_cambio.Proyectoid', '=', 'Proyecto.Id')
+            ->join('proyecto', 'solicitud_cambio.ProyectoId', '=', 'proyecto.Id')
             ->join('miembro_proyecto', 'solicitud_cambio.MiembroSolicitanteId', '=', 'miembro_proyecto.Id')
             ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
             ->select('solicitud_cambio.*', 'proyecto.Nombre as Nombre_Proyecto', 'usuario.Nombre as Nombre_Solicitante', 'usuario.Apellido as Apellido_Solicitante')
@@ -58,7 +58,7 @@ class SolicitudCambio extends Model
     public static function ListarSolucitudesAceptadas($UsuarioId){
    
         $solicitudcambio = DB::table('solicitud_cambio')
-                            ->join('proyecto', 'solicitud_cambio.Proyectoid', '=', 'Proyecto.Id')
+                            ->join('proyecto', 'solicitud_cambio.Proyectoid', '=', 'proyecto.Id')
                             ->join('miembro_proyecto', 'solicitud_cambio.MiembroJefeId', '=', 'miembro_proyecto.Id')
                             ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
                             ->select('solicitud_cambio.*', 'proyecto.Nombre as Nombre_Proyecto', 'usuario.Nombre as Nombre_Solicitante')
