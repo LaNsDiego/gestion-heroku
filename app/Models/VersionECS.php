@@ -26,7 +26,7 @@ class VersionECS extends Model
 
     //Relations
     public function CronogramaEC(){
-        return $this->hasOne('App\Models\CronogramaElementoConfiguracion', 'Id');
+        return $this->hasOne('App\Models\CronogramaElementoConfiguracion', 'Id','ElementoConfiguracionId');
     }
 
 }

@@ -10,13 +10,14 @@ use App\Models\Metodologia;
 use App\Models\MiembroProyecto;
 use Illuminate\Http\Request;
 use App\Models\Proyecto as Proyecto;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ProyectoController extends Controller
 {
     public function Listar(){
-        $ListadoProyecto = Proyecto::get();
-
+        $objUsuario = Auth::user();
+        $ListadoProyecto = Proyecto::ListarPorJefeUsuarioId($objUsuario->Id);
         return view('Proyecto.listar',[
             'ListadoProyecto' => $ListadoProyecto
         ]);
@@ -58,10 +59,17 @@ class ProyectoController extends Controller
             $Cronograma->ProyectoId= $ObjProyecto->id;
             $Cronograma->FechaInicio= $request->input('FechaInicio');
             $Cronograma->FechaTermino= $request->input('FechaTermino');
-
-            if(Cronograma::Agregar($Cronograma) > 0){ //CRONOGRAMA
+            $insertedIdProyecto = Cronograma::Agregar($Cronograma);
+            if( $insertedIdProyecto > 0){ //CRONOGRAMA
                 $ListadoFaseNombre = $request->input('FasesNombre');
+                //UNIR AL USUARIO JEFE COMO MIEMBRO DEL PROYECTO
+                $ObjMiembro = new MiembroProyecto();
+                $ObjMiembro->UsuarioMiembroId = $ObjProyecto->UsuarioJefeId;
+                $ObjMiembro->RolId = 1; // el 1 es jefe
+                $ObjMiembro->ProyectoId = $insertedIdProyecto;
+                MiembroProyecto::Agregar($ObjMiembro);
                 Log::info($request->all());
+                Log::info($ObjProyecto);
                 if(isset($ListadoFaseNombre)){
 
                     Log::info($ListadoFaseNombre);

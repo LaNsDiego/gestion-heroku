@@ -133,8 +133,9 @@ Route::post('OrdenCambio/MiembrosPorProyeto', 'OrdenCambioController@ActMiembros
 
 Route::post('/version/agregar', 'VersionECSController@ActAgregar');
 Route::get('/version/ver/{Id}', 'VersionECSController@FrmVer');
-Route::post('/tarea/agregar', 'TareaECSController@Agregar');
-
+Route::post('/tarea/agregar', 'TareaECSController@Agregar');//Act
+Route::post('/tarea/editar/{Id}', 'TareaECSController@ActEditar');
+Route::get('mis-tareas/listar','TareaECSController@FrmListarPorMiembro');
 
 });
 //end middleware

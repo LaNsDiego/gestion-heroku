@@ -25,6 +25,11 @@ class TareaECS extends Model
         return $ObjTarea->save();
     }
 
+    public static function Editar(TareaECS $ObjTarea)
+    {
+        return $ObjTarea->save();
+    }
+
     public function Miembro(){
         return $this->hasOne('App\Models\MiembroProyecto', 'Id','MiembroResponsableId')->with('Usuario');
     }

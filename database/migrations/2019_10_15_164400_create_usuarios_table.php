@@ -15,12 +15,12 @@ class CreateUsuariosTable extends Migration
     {
         Schema::enableForeignKeyConstraints();
         Schema::create('usuario', function (Blueprint $table) {
-            
+
             $table->increments('Id');
-            $table->string('Nombre', 200);
-            $table->string('Apellido', 200);
-            $table->string('Correo', 200)->unique();
-            $table->string('password', 250);
+            $table->string('Nombre', 100);
+            $table->string('Apellido', 100);
+            $table->string('Correo', 100)->unique();
+            $table->string('password', 100);
             $table->integer('TipoUsuarioId')->unsigned();
             $table->foreign('TipoUsuarioId')->references('Id')->on('tipo_usuario');
             //$table->rememberToken();

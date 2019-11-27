@@ -13,7 +13,8 @@ class MiembroProyecto extends Model
     public static function ListarPorProyectoId($ProyectoId)
     {
         return MiembroProyecto::where('ProyectoId',$ProyectoId)->get()->map(function($ObjMiembro){
-            $ObjMiembro->Nombre = Usuario::find($ObjMiembro->UsuarioMiembroId)->Usuario;
+            $ObjUsuario = Usuario::find($ObjMiembro->UsuarioMiembroId);
+            $ObjMiembro->Nombre = $ObjUsuario->Nombre ." ".  $ObjUsuario->Apellido ;
             return $ObjMiembro;
         });
     }

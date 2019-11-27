@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\CronogramaFase;
 use Illuminate\Database\Eloquent\Model;
 
 class Cronograma extends Model
@@ -27,4 +26,4 @@ class Cronograma extends Model
     }
 }
 
-?>
+

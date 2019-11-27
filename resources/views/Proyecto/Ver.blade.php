@@ -169,7 +169,7 @@
                     <select id="CmbMiembroResponsableId" name="CmbMiembroResponsableId" class="form-control">
                         <option disabled selected>Seleccione una opción...</option>
                         @foreach($ListadoMiembro as $ObjMiembro)
-                            <option value="{{$ObjMiembro->Usuario->Id}}">{{$ObjMiembro->Usuario->Nombre.' '.$ObjMiembro->Usuario->Apellido}} - {{$ObjMiembro->Rol->Nombre}}</option>
+                            <option value="{{$ObjMiembro->Id}}">{{$ObjMiembro->Usuario->Nombre.' '.$ObjMiembro->Usuario->Apellido}} - {{$ObjMiembro->Rol->Nombre}}</option>
                         @endforeach
                     </select>
                 </div>

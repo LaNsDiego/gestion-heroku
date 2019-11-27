@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <!-- <div class="form-group"> -->
-                        <input type="hidden" name="UsuarioJefeId" value="1">
+                        <input type="hidden" name="UsuarioJefeId" value="{{Auth::user()->Id}}">
                         <!-- <label class="control-label">Responsable</label>
                         <input class="form-control" name="responsable" type="text" readonly>
                     </div> -->
