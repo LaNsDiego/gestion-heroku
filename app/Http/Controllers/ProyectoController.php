@@ -8,6 +8,7 @@ use App\Models\CronogramaFase;
 use App\Models\ElementoConfiguracion;
 use App\Models\Metodologia;
 use App\Models\MiembroProyecto;
+use App\Models\TareaECS;
 use Illuminate\Http\Request;
 use App\Models\Proyecto as Proyecto;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ class ProyectoController extends Controller
 
     public function Ver($ProyectoId)
     {
+        $Progreso = TareaECS::Progreso($ProyectoId);
         $Cronograma = Cronograma::ObtenerPorProyectoId($ProyectoId);
         $Proyecto = Proyecto::ObtenerPorId($ProyectoId);
         return view('Proyecto.Ver',[
@@ -32,7 +34,8 @@ class ProyectoController extends Controller
             'Cronograma' => $Cronograma,
             'ListadoFase' => CronogramaFase::ListarPorCronogramaId($Cronograma->Id),
             'Metodologia' => Metodologia::ObtenerPorId($Proyecto->MetodologiaId),
-            'ListadoMiembro' => MiembroProyecto::ListarPorProyectoId($ProyectoId)
+            'ListadoMiembro' => MiembroProyecto::ListarPorProyectoId($ProyectoId),
+            'Progreso' => $Progreso
         ]);
     }
 

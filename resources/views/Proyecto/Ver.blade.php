@@ -37,13 +37,13 @@
                 <span class="text-uppercase">Información general de la tarea</span>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="box-task-item"><span>18</span> Abierto</div>
+                        <div class="box-task-item"><span>{{ $Progreso["Abiertos"] }}</span> Abierto</div>
                     </div>
                     <div class="col-md-4">
-                        <div class="box-task-item"><span>0</span> En progreso</div>
+                        <div class="box-task-item"><span>{{ $Progreso["Proceso"] }}</span> En progreso</div>
                     </div>
                     <div class="col-md-4">
-                        <div class="box-task-item"><span>0</span> Finalizado</div>
+                        <div class="box-task-item"><span>{{ $Progreso["Terminados"] }}</span> Finalizado</div>
                     </div>
                 </div>
             </div>
