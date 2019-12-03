@@ -40,32 +40,40 @@ class TareaECSController extends Controller
     }
 
     public function FrmListarPorMiembro(){
-         $MiembroId = MiembroProyecto::where('UsuarioMiembroId',Auth::user()->Id)->first()->Id;
-        $ListadoTarea = TareaECS::where('MiembroResponsableId',$MiembroId)->where('PorcentajeAvance','<',100)->get()->map(function($ObjTarea){
-//            $ObjTarea->Proyecto
-            $ObjVersion = VersionECS::where('Id',$ObjTarea->VersionECSId)->first();
-            $ObjTarea->VersionCodigo =  $ObjVersion->Version;
-            $ObjCEC = CronogramaElementoConfiguracion::where('Id',$ObjVersion->ElementoConfiguracionId)->first();
-            $ObjTarea->ElementoNombre =  $ObjCEC->Nombre;
-            $ObjCronogramaFase = CronogramaFase::where('Id',$ObjCEC->CronogramaFaseId)->first();
-            $ObjTarea->Fase = $ObjCronogramaFase->Nombre;
-            $ObjCronograma = Cronograma::where('Id',$ObjCronogramaFase->CronogramaId)->first();
-            $ObjTarea->Proyecto = Proyecto::where('Id', $ObjCronograma->ProyectoId)->first()->Nombre;
-            return $ObjTarea;
-        });
+         $ListadoMiembro = MiembroProyecto::where('UsuarioMiembroId',Auth::user()->Id)->get();
+        $ListadoTarea = [];
+        $ListadoTareaTerminado = [];
+         foreach ($ListadoMiembro as $ObjMiembro){
 
-        $ListadoTareaTerminado = TareaECS::where('MiembroResponsableId',$MiembroId)->where('PorcentajeAvance',100)->get()->map(function($ObjTarea){
-//            $ObjTarea->Proyecto
-            $ObjVersion = VersionECS::where('Id',$ObjTarea->VersionECSId)->first();
-            $ObjTarea->VersionCodigo =  $ObjVersion->Version;
-            $ObjCEC = CronogramaElementoConfiguracion::where('Id',$ObjVersion->ElementoConfiguracionId)->first();
-            $ObjTarea->ElementoNombre =  $ObjCEC->Nombre;
-            $ObjCronogramaFase = CronogramaFase::where('Id',$ObjCEC->CronogramaFaseId)->first();
-            $ObjTarea->Fase = $ObjCronogramaFase->Nombre;
-            $ObjCronograma = Cronograma::where('Id',$ObjCronogramaFase->CronogramaId)->first();
-            $ObjTarea->Proyecto = Proyecto::where('Id', $ObjCronograma->ProyectoId)->first()->Nombre;
-            return $ObjTarea;
-        });
+             $SubListadoTareaNoTerminado = TareaECS::where('MiembroResponsableId',$ObjMiembro->Id)->where('PorcentajeAvance','<',100)->get();
+             foreach ($SubListadoTareaNoTerminado as $ObjTarea){
+                 $ObjVersion = VersionECS::where('Id',$ObjTarea->VersionECSId)->first();
+                 $ObjTarea->VersionCodigo =  $ObjVersion->Version;
+                 $ObjCEC = CronogramaElementoConfiguracion::where('Id',$ObjVersion->ElementoConfiguracionId)->first();
+                 $ObjTarea->ElementoNombre =  $ObjCEC->Nombre;
+                 $ObjCronogramaFase = CronogramaFase::where('Id',$ObjCEC->CronogramaFaseId)->first();
+                 $ObjTarea->Fase = $ObjCronogramaFase->Nombre;
+                 $ObjCronograma = Cronograma::where('Id',$ObjCronogramaFase->CronogramaId)->first();
+                 $ObjTarea->Proyecto = Proyecto::where('Id', $ObjCronograma->ProyectoId)->first()->Nombre;
+                 array_push($ListadoTarea,$ObjTarea);
+             }
+
+             $SubListadoTareaTerminado = TareaECS::where('MiembroResponsableId',$ObjMiembro->Id)->where('PorcentajeAvance',100)->get();
+             foreach ($SubListadoTareaTerminado as $ObjTarea ){
+                 $ObjVersion = VersionECS::where('Id',$ObjTarea->VersionECSId)->first();
+                 $ObjTarea->VersionCodigo =  $ObjVersion->Version;
+                 $ObjCEC = CronogramaElementoConfiguracion::where('Id',$ObjVersion->ElementoConfiguracionId)->first();
+                 $ObjTarea->ElementoNombre =  $ObjCEC->Nombre;
+                 $ObjCronogramaFase = CronogramaFase::where('Id',$ObjCEC->CronogramaFaseId)->first();
+                 $ObjTarea->Fase = $ObjCronogramaFase->Nombre;
+                 $ObjCronograma = Cronograma::where('Id',$ObjCronogramaFase->CronogramaId)->first();
+                 $ObjTarea->Proyecto = Proyecto::where('Id', $ObjCronograma->ProyectoId)->first()->Nombre;
+                 array_push($ListadoTareaTerminado,$ObjTarea);
+             }
+         }
+
+
+
 
         return view('Tarea.ListarPorMiembro',[
             'ListadoTarea' =>$ListadoTarea,
