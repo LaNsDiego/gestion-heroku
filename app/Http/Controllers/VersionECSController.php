@@ -18,9 +18,7 @@ class VersionECSController extends Controller
         $ObjECS->FechaTermino = $request->input("TxtFechaTermino");
         $ObjECS->ElementoConfiguracionId = $request->input("TxtElementoConfiguracionId");
         $ObjECS->MiembroResponsableId = $request->input("CmbMiembroResponsableId");
-        Log::info($ObjECS);
-        $r = VersionECS::Agregar($ObjECS);
-        Log::info("RESULTADO : "+$r);
+        VersionECS::Agregar($ObjECS);
         return redirect()->back();
     }
 
