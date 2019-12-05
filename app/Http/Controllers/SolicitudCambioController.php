@@ -16,6 +16,7 @@ use App\Models\DetalleInformeCambio as DetalleInformeCambio;
 
 use Auth;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -147,7 +148,7 @@ class SolicitudCambioController extends Controller
                 )
             );
             session()->put('DInformeCambio', $data);
-            
+
             return view('SolicitudCambio.detalleinforme', ['ADetalleInforme' => $data]);
         }else{
             session('DInformeCambio');

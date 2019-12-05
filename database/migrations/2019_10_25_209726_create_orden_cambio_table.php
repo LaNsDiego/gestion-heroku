@@ -27,9 +27,11 @@ class CreateOrdenCambioTable extends Migration
             $table->string('Estado',20);
 
             $table->foreign('SolicitudCambioId')->references('Id')->on('solicitud_cambio');
-            $table->foreign('JefeId')->references('Id')->on('usuario');
+            $table->foreign('JefeId')->references('Id')->on('miembro_proyecto');
         });
     }
+
+
 
     /**
      * Reverse the migrations.

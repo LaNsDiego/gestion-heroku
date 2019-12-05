@@ -74,7 +74,8 @@ class SolicitudCambio extends Model
     public static function ObtenerSolicitudPorId($SolicitudId){
 
         $solicitudcambio = DB::table('solicitud_cambio')
-                            ->join('usuario', 'solicitud_cambio.MiembroSolicitanteId', '=', 'usuario.Id')
+                            ->join('miembro_proyecto', 'solicitud_cambio.MiembroSolicitanteId', '=', 'miembro_proyecto.Id')
+                            ->join('usuario', 'miembro_proyecto.UsuarioMiembroId', '=', 'usuario.Id')
                             ->select('solicitud_cambio.*', 'usuario.Nombre as Usuario_Solicitante')
                             ->where('solicitud_cambio.Id', $SolicitudId)
                             ->first();

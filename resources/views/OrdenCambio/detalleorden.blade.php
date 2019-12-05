@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <? $j = 1;  ?>
+            <?php $j = 1;  ?>
             @for ($i = 0; $i < count($ListadoDetalleOrden); $i++)
                 @if ($ListadoDetalleOrden[$i]['Eliminado'] == 0)
                     <tr>
@@ -25,7 +25,7 @@
                             <a class="btn btn-danger btn-sm" onclick="Fnc_DeleteDetalleOrden({{ $ListadoDetalleOrden[$i]['ECSIdM'] }})"><i class="fa fa-trash fa-2x m-0" aria-hidden="true"></i></a>
                         </td>
                     <tr>
-                <? $j++;  ?>
+                <?php $j++;  ?>
                 @endif
             @endfor
               
